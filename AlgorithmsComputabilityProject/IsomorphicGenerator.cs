@@ -22,7 +22,7 @@ namespace AlgorithmsComputabilityProject
         {
             foreach (string array in permutations)
             {
-                Matrix newMatrix = M;
+                Matrix newMatrix = new Matrix(M.Graph);
                 for(int i=0;i<array.Length;i++)
                 {
 

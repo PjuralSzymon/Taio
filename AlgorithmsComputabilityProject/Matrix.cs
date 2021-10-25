@@ -10,35 +10,45 @@ namespace AlgorithmsComputabilityProject
     {
         public int VerticesNumber { get; set; }
         public int EdgesNumber { get; set; }
-        public int[,] graph { get; set; }
+        public int[,] Graph { get; set; }
 
         public int this[int i, int j]
         {
-            get { return graph[i, j]; }
+            get { return Graph[i, j]; }
             set 
             {
-                if (graph[i, j] == value)
+                if (Graph[i, j] == value)
                     return;
-                graph[i, j] = value; 
+                Graph[i, j] = value; 
             }
         }
 
-        public Matrix(int[,] _graph)
+        public Matrix(int[,] graph)
         {
-            if(_graph.GetLength(0)!=_graph.GetLength(1))
+            InitializeGraph(graph);
+        }
+
+        private void InitializeGraph(int[,] graph)
+        {
+            if (graph.GetLength(0) != graph.GetLength(1))
             {
                 throw new ArgumentException("ERROR: Matrix dimensions must be equal");
             }
-            graph = _graph;
-            VerticesNumber = graph.GetLength(0);
+
+            int[,] data = new int[graph.GetLength(0), graph.GetLength(1)];
+            for (int i = 0; i < graph.GetLength(0); i++)
+            {
+                for (int j = 0; j < graph.GetLength(1); j++)
+                {
+                    data[i, j] = graph[i, j];
+                }
+            }
+
+            Graph = data;
+            VerticesNumber = Graph.GetLength(0);
             EdgesNumber = CountOnes(this);
         }
 
-        public Matrix Copy()
-        {
-            int [,] Cos_Tam
-            Matrix matrixToReturn = new Matrix(this.graph.Clone());
-        }
         public Matrix GetSubMatrix(int startIndexX,int startIndexY, int size)
         {
             int[,] newGraph = new int[size, size];
@@ -46,7 +56,7 @@ namespace AlgorithmsComputabilityProject
             {
                 for(int j= startIndexY; j< startIndexY + size;j++)
                 {
-                    newGraph[i - startIndexX, j - startIndexY] = graph[i, j];
+                    newGraph[i - startIndexX, j - startIndexY] = Graph[i, j];
                 }
             }
             return new Matrix(newGraph);
@@ -89,7 +99,7 @@ namespace AlgorithmsComputabilityProject
                 {
                     if (M[i, j] != 0) 
                         M[i, j] = 1;
-                    counter += M.graph[i, j];
+                    counter += M.Graph[i, j];
                 }
             return counter;
         }
@@ -102,7 +112,7 @@ namespace AlgorithmsComputabilityProject
             {
                 for (int j = 0; j < VerticesNumber; j++)
                 {
-                    Console.Write(graph[i, j] + " ");
+                    Console.Write(Graph[i, j] + " ");
                 }
                 Console.Write("\n");
             }
