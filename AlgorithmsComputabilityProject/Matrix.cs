@@ -34,9 +34,11 @@ namespace AlgorithmsComputabilityProject
             EdgesNumber = CountOnes(this);
         }
 
-
-
-
+        public Matrix Copy()
+        {
+            int [,] Cos_Tam
+            Matrix matrixToReturn = new Matrix(this.graph.Clone());
+        }
         public Matrix GetSubMatrix(int startIndexX,int startIndexY, int size)
         {
             int[,] newGraph = new int[size, size];
@@ -105,6 +107,15 @@ namespace AlgorithmsComputabilityProject
                 Console.Write("\n");
             }
             Console.WriteLine(" ");
+        }
+
+        public void swapColumn(int from, int to)
+        {
+
+        }
+        public void swapRow(int from, int to)
+        {
+
         }
     }
 }
