@@ -8,19 +8,19 @@ namespace AlgorithmsComputabilityProject
 {
     class Permutation
     {
-        public List<string> Permutations { get; set; }
+        public List<int[]> Permutations { get; set; }
 
         public Permutation(int size)
         {
             Permute(GenerateString(size), 0, size);
         }
 
-        private string GenerateString(int size)
+        private int [] GenerateString(int size)
         {
-            string result = "";
+            int[] result = new int[size];
             for(int i=0;i<size;i++)
             {
-                result += i.ToString();
+                result[i] = i;
             }
             return result;
         }
@@ -32,35 +32,29 @@ namespace AlgorithmsComputabilityProject
         // skopiowane z wypizdowa DO SPRAWDZENIA : !!!!
         // skopiowane z wypizdowa DO SPRAWDZENIA : !!!!
         // skopiowane z wypizdowa DO SPRAWDZENIA : !!!!
-        // skopiowane z wypizdowa DO SPRAWDZENIA : !!!!
-        // skopiowane z wypizdowa DO SPRAWDZENIA : !!!!
-        // skopiowane z wypizdowa DO SPRAWDZENIA : !!!!
-        // skopiowane z wypizdowa DO SPRAWDZENIA : !!!!
+        // skopiowane z wypizdowa DO SPRAWDZENIA : !!!! (tylko przerobiłem na int z stringu
 
-        private void Permute(string str, int l, int r)
+        private void Permute(int[] data, int l, int r)
         {
             if (l == r)
-                Permutations.Add(str);
+                Permutations.Add(data);
             else
             {
                 for (int i = l; i <= r; i++)
                 {
-                    str = swap(str, l, i);
-                    Permute(str, l + 1, r);
-                    str = swap(str, l, i);
+                    data = swap(data, l, i);
+                    Permute(data, l + 1, r);
+                    data = swap(data, l, i);
                 }
             }
         }
 
-        public string swap(string a, int i, int j)
+        public static int[] swap(int[] data, int i, int j)
         {
-            char temp;
-            char[] charArray = a.ToCharArray();
-            temp = charArray[i];
-            charArray[i] = charArray[j];
-            charArray[j] = temp;
-            string s = new string(charArray);
-            return s;
+            int tmp = data[i];
+            data[i] = data[j];
+            data[j] = tmp;
+            return data;
         }
     }
 }

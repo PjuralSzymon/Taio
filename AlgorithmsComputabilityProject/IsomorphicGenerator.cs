@@ -10,7 +10,7 @@ namespace AlgorithmsComputabilityProject
     class IsomorphicGenerator : IEnumerable
     {
 
-        private List<string> permutations;
+        private List<int[]> permutations;
         private Matrix M;
         public IsomorphicGenerator(Matrix _M)
         {

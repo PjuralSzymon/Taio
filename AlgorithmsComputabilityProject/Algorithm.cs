@@ -18,17 +18,19 @@ namespace AlgorithmsComputabilityProject
             }
             Matrix BiggestSubGraph = null;
             int maxCommonEdges = 0;
-            // permutions ...
-            for(int x =0; x<=A.VerticesNumber-B.VerticesNumber; x++)
+            foreach (Matrix M in new IsomorphicGenerator(B))
             {
-                for(int y=0;y<=A.VerticesNumber-B.VerticesNumber;y++)
+                for (int x = 0; x <= A.VerticesNumber - M.VerticesNumber; x++)
                 {
-                    Matrix subMatrix = A.GetSubMatrix(x, y,B.VerticesNumber);
-                    subMatrix = Matrix.FindCommonMatrix(subMatrix, B);
-                    if (subMatrix.EdgesNumber > maxCommonEdges)
+                    for (int y = 0; y <= A.VerticesNumber - M.VerticesNumber; y++)
                     {
-                        maxCommonEdges = subMatrix.EdgesNumber;
-                        BiggestSubGraph = subMatrix;
+                        Matrix subMatrix = A.GetSubMatrix(x, y, M.VerticesNumber);
+                        subMatrix = Matrix.FindCommonMatrix(subMatrix, M);
+                        if (subMatrix.EdgesNumber > maxCommonEdges)
+                        {
+                            maxCommonEdges = subMatrix.EdgesNumber;
+                            BiggestSubGraph = subMatrix;
+                        }
                     }
                 }
             }
