@@ -127,19 +127,27 @@ namespace AlgorithmsComputabilityProject
                 {
                     Console.Write(Graph[i][j] + " ");
                 }
-                Console.Write("\n");
+                Console.WriteLine();
             }
             Console.WriteLine(" ");
         }
 
-        public void SwapColumn(int from, int to)
+        public void SwapColumn(int columnA, int columnB)
         {
+            int[] colB = Graph.Select(row => row[columnB]).ToArray();
 
+            for (int i = 0; i < Graph.Length; i++)
+            {
+                Graph[i][columnB] = Graph[i][columnA];
+                Graph[i][columnA] = colB[i];
+            }
         }
 
-        public void SwapRow(int from, int to)
+        public void SwapRow(int rowA, int rowB)
         {
-
+            int[] temp = Graph[rowB];
+            Graph[rowB] = Graph[rowA];
+            Graph[rowA] = temp;
         }
 
         public static void InitializeArrays(int[][] graph, int size)

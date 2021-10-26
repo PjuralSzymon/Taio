@@ -36,15 +36,20 @@ namespace AlgorithmsComputabilityProject
 
         private void Permute(int[] data, int start, int end)
         {
+            int[] copiedData = new int[data.Length];
+            data.CopyTo(copiedData, 0);
+
             if (start == end)
-                Permutations.Add(data);
+            {
+                Permutations.Add(copiedData);
+            }
             else
             {
                 for (int i = start; i <= end; i++)
                 {
-                    Swap(data, start, i);
-                    Permute(data, start + 1, end);
-                    Swap(data, start, i);
+                    Swap(copiedData, start, i);
+                    Permute(copiedData, start + 1, end);
+                    Swap(copiedData, start, i);
                 }
             }
         }

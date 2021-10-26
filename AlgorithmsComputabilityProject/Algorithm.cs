@@ -19,14 +19,15 @@ namespace AlgorithmsComputabilityProject
 
             Matrix BiggestSubGraph = null;
             int maxCommonEdges = 0;
-            foreach (Matrix M in new IsomorphicGenerator(B))
+            foreach (Matrix M in new IsomorphicGenerator(A))
             {
-                for (int x = 0; x <= A.VerticesNumber - M.VerticesNumber; x++)
+                M.Print();
+                for (int x = 0; x <= M.VerticesNumber - B.VerticesNumber; x++)
                 {
-                    for (int y = 0; y <= A.VerticesNumber - M.VerticesNumber; y++)
+                    for (int y = 0; y <= M.VerticesNumber - B.VerticesNumber; y++)
                     {
-                        Matrix subMatrix = A.GetSubMatrix(x, y, M.VerticesNumber);
-                        subMatrix = Matrix.FindCommonMatrix(subMatrix, M);
+                        Matrix subMatrix = M.GetSubMatrix(x, y, B.VerticesNumber);
+                        subMatrix = Matrix.FindCommonMatrix(subMatrix, B);
                         if (subMatrix.EdgesNumber > maxCommonEdges)
                         {
                             maxCommonEdges = subMatrix.EdgesNumber;
