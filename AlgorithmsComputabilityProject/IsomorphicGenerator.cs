@@ -20,15 +20,18 @@ namespace AlgorithmsComputabilityProject
 
         public IEnumerator GetEnumerator()
         {
-            foreach (string array in permutations)
+            foreach (int[] array in permutations)
             {
                 Matrix newMatrix = new Matrix(M.Graph);
                 for(int i=0;i<array.Length;i++)
                 {
-
+                    if (array[i]!=i)
+                    {
+                        newMatrix.swapColumn(array[i], i);
+                        newMatrix.swapRow(array[i], i);
+                        Permutation.swap(array, array[i], i);
+                    }
                 }
-                // ...
-                // Yield each day of the week.
                 yield return newMatrix;
             }
         }
