@@ -9,27 +9,27 @@ namespace AlgorithmsComputabilityProject
 {
     class IsomorphicGenerator : IEnumerable
     {
+        private readonly List<int[]> Permutations;
+        private readonly Matrix M;
 
-        private List<int[]> permutations;
-        private Matrix M;
         public IsomorphicGenerator(Matrix _M)
         {
             M = _M;
-            permutations = (new Permutation(M.VerticesNumber)).Permutations;
+            Permutations = new Permutation(M.VerticesNumber).Permutations;
         }
 
         public IEnumerator GetEnumerator()
         {
-            foreach (int[] array in permutations)
+            foreach (int[] array in Permutations)
             {
                 Matrix newMatrix = new Matrix(M.Graph);
-                for(int i=0;i<array.Length;i++)
+                for(int i = 0; i < array.Length; i++)
                 {
-                    if (array[i]!=i)
+                    if (array[i] != i)
                     {
-                        newMatrix.swapColumn(array[i], i);
-                        newMatrix.swapRow(array[i], i);
-                        Permutation.swap(array, array[i], i);
+                        newMatrix.SwapColumn(array[i], i);
+                        newMatrix.SwapRow(array[i], i);
+                        Permutation.Swap(array, array[i], i);
                     }
                 }
                 yield return newMatrix;

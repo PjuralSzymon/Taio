@@ -10,55 +10,63 @@ namespace AlgorithmsComputabilityProject
     {
         public int VerticesNumber { get; set; }
         public int EdgesNumber { get; set; }
-        public int[,] Graph { get; set; }
+        public int[][] Graph { get; set; }
 
         public int this[int i, int j]
         {
-            get { return Graph[i, j]; }
+            get
+            { 
+                return Graph[i][j];
+            }
             set 
             {
-                if (Graph[i, j] == value)
+                if (Graph[i][j] == value)
                     return;
-                Graph[i, j] = value; 
+                Graph[i][j] = value; 
             }
         }
 
-        public Matrix(int[,] graph)
+        public Matrix(int[][] graph)
         {
             InitializeGraph(graph);
         }
 
-        private void InitializeGraph(int[,] graph)
+        private void InitializeGraph(int[][] graph)
         {
-            if (graph.GetLength(0) != graph.GetLength(1))
+            int rowCount = graph.Length;
+            foreach (int[] row in graph)
             {
-                throw new ArgumentException("ERROR: Matrix dimensions must be equal");
-            }
-
-            int[,] data = new int[graph.GetLength(0), graph.GetLength(1)];
-            for (int i = 0; i < graph.GetLength(0); i++)
-            {
-                for (int j = 0; j < graph.GetLength(1); j++)
+                if (row.Length != rowCount)
                 {
-                    data[i, j] = graph[i, j];
+                    throw new ArgumentException("ERROR: Matrix dimensions must be equal");
                 }
+            }
+            
+            int[][] data = new int[rowCount][];
+            for (int i = 0; i < rowCount; i++)
+            {
+                data[i] = new int[rowCount];
+                graph[i].CopyTo(data[i], 0);
             }
 
             Graph = data;
-            VerticesNumber = Graph.GetLength(0);
+            VerticesNumber = rowCount;
             EdgesNumber = CountOnes(this);
         }
 
-        public Matrix GetSubMatrix(int startIndexX,int startIndexY, int size)
+        public Matrix GetSubMatrix(int startIndexX, int startIndexY, int size)
         {
-            int[,] newGraph = new int[size, size];
-            for(int i= startIndexX; i< startIndexX + size;i++)
+            int[][] newGraph = new int[size][];
+            InitializeArrays(newGraph, size);
+
+            for(int i = startIndexX; i < startIndexX + size; i++)
             {
-                for(int j= startIndexY; j< startIndexY + size;j++)
+                for(int j = startIndexY; j < startIndexY + size; j++)
                 {
-                    newGraph[i - startIndexX, j - startIndexY] = Graph[i, j];
+                    newGraph[i - startIndexX][j - startIndexY] = Graph[i][j];
                 }
             }
+
             return new Matrix(newGraph);
         }
 
@@ -68,14 +76,16 @@ namespace AlgorithmsComputabilityProject
             {
                 throw new ArgumentException("ERROR: Matrix A and B must have the same size");
             }
+
             int counter = 0;
-            for(int i=0;i<A.VerticesNumber;i++)
+            for(int i = 0; i < A.VerticesNumber; i++)
             {
-                for(int j=0;j<A.VerticesNumber;j++)
+                for(int j = 0; j < A.VerticesNumber; j++)
                 {
-                    if ((A[i, j] == B[i, j]) && (B[i,j] == 1)) counter++;
+                    if ((A[i, j] == B[i, j]) && (B[i, j] == 1)) counter++;
                 }
             }
+
             return counter;
         }
 
@@ -88,19 +98,22 @@ namespace AlgorithmsComputabilityProject
                     if ((A[i, j] == 1) && (B[i, j] == 0)) A[i, j] = 0;
                 }
             }
-            A.EdgesNumber = Matrix.CountOnes(A);
+            A.EdgesNumber = CountOnes(A);
             return A;
         }
+
         public static int CountOnes(Matrix M)
         {
             int counter = 0;
-            for(int i=0; i<M.VerticesNumber; i++)
-                for(int j=0; j<M.VerticesNumber; j++)
+            for(int i = 0; i < M.VerticesNumber; i++)
+            {
+                for (int j = 0; j < M.VerticesNumber; j++)
                 {
-                    if (M[i, j] != 0) 
+                    if (M[i, j] != 0)
                         M[i, j] = 1;
-                    counter += M.Graph[i, j];
+                    counter += M.Graph[i][j];
                 }
+            }
             return counter;
         }
 
@@ -112,20 +125,29 @@ namespace AlgorithmsComputabilityProject
             {
                 for (int j = 0; j < VerticesNumber; j++)
                 {
-                    Console.Write(Graph[i, j] + " ");
+                    Console.Write(Graph[i][j] + " ");
                 }
                 Console.Write("\n");
             }
             Console.WriteLine(" ");
         }
 
-        public void swapColumn(int from, int to)
+        public void SwapColumn(int from, int to)
         {
 
         }
-        public void swapRow(int from, int to)
+
+        public void SwapRow(int from, int to)
         {
 
+        }
+
+        public static void InitializeArrays(int[][] graph, int size)
+        {
+            for (int i = 0; i < size; i++)
+            {
+                graph[i] = new int[size];
+            }
         }
     }
 }

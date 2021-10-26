@@ -10,12 +10,13 @@ namespace AlgorithmsComputabilityProject
     {
         public static Matrix FindMaximalSubGraph(Matrix A, Matrix B)
         {
-            if(A.VerticesNumber<B.VerticesNumber)
+            if (A.VerticesNumber < B.VerticesNumber)
             {
                 Matrix tmp = B;
                 B = A;
                 A = tmp;
             }
+
             Matrix BiggestSubGraph = null;
             int maxCommonEdges = 0;
             foreach (Matrix M in new IsomorphicGenerator(B))
