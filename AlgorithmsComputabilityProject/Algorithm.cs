@@ -17,7 +17,7 @@ namespace AlgorithmsComputabilityProject
                 A = tmp;
             }
 
-            Matrix BiggestSubGraph = null;
+            Matrix biggestSubGraph = null;
             int maxCommonEdges = 0;
             foreach (Matrix M in new IsomorphicGenerator(A))
             {
@@ -37,16 +37,16 @@ namespace AlgorithmsComputabilityProject
                         //    }
                         //}
                         Matrix subMatrix = M.GetSubMatrix(x, y, B.VerticesNumber);
-                        subMatrix = Matrix.FindCommonMatrix(subMatrix, B);
-                        if (subMatrix.EdgesNumber > maxCommonEdges)
+                        Matrix commonMatrix = Matrix.FindCommonMatrix(subMatrix, B);
+                        if (commonMatrix.EdgesNumber > maxCommonEdges)
                         {
-                            maxCommonEdges = subMatrix.EdgesNumber;
-                            BiggestSubGraph = subMatrix;
+                            maxCommonEdges = commonMatrix.EdgesNumber;
+                            biggestSubGraph = commonMatrix;
                         }
                     }
                 }
             }
-            return BiggestSubGraph;
+            return biggestSubGraph;
         }
 
         public static Matrix FindMinimalSuperGraph(Matrix A, Matrix B)
