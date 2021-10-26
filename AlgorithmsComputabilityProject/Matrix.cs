@@ -9,7 +9,14 @@ namespace AlgorithmsComputabilityProject
     public class Matrix
     {
         public int VerticesNumber { get; set; }
-        public int EdgesNumber { get; set; }
+        public int EdgesNumber 
+        { 
+            get
+            {
+                return CountOnes(this);
+            }
+        }
+
         public int[][] Graph { get; set; }
 
         public int this[int i, int j]
@@ -51,7 +58,7 @@ namespace AlgorithmsComputabilityProject
 
             Graph = data;
             VerticesNumber = rowCount;
-            EdgesNumber = CountOnes(this);
+            //EdgesNumber = CountOnes(this);
         }
 
         public Matrix GetSubMatrix(int startIndexX, int startIndexY, int size)
@@ -98,7 +105,7 @@ namespace AlgorithmsComputabilityProject
                     if ((A[i, j] == 1) && (B[i, j] == 0)) A[i, j] = 0;
                 }
             }
-            A.EdgesNumber = CountOnes(A);
+            //A.EdgesNumber = CountOnes(A);
             return A;
         }
 
@@ -150,6 +157,20 @@ namespace AlgorithmsComputabilityProject
             Graph[rowA] = temp;
         }
 
+        public void InsertOnesToMatrixAt(int x, int y, Matrix M)
+        {
+            for(int i=x;i<VerticesNumber && i-x<M.VerticesNumber;i++)
+            {
+                for(int j=y;j<VerticesNumber && j-y<M.VerticesNumber;j++)
+                {
+                    if (M.Graph[i - x][j - y] == 1)
+                    {
+                        Graph[i][j] = M.Graph[i - x][j - y];
+                    }
+                }
+            }
+        }
+
         public static void InitializeArrays(int[][] graph, int size)
         {
             for (int i = 0; i < size; i++)
@@ -157,5 +178,7 @@ namespace AlgorithmsComputabilityProject
                 graph[i] = new int[size];
             }
         }
+
+        
     }
 }

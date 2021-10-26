@@ -51,7 +51,32 @@ namespace AlgorithmsComputabilityProject
 
         public static Matrix FindMinimalSuperGraph(Matrix A, Matrix B)
         {
-            return null;
+            if (A.VerticesNumber < B.VerticesNumber)
+            {
+                Matrix tmp = B;
+                B = A;
+                A = tmp;
+            }
+
+            Matrix SmallestSuperGraph = null;
+            int minCommonEdges = int.MaxValue;
+            foreach (Matrix M in new IsomorphicGenerator(A))
+            {
+                for (int x = 0; x <= M.VerticesNumber - B.VerticesNumber; x++)
+                {
+                    for (int y = 0; y <= M.VerticesNumber - B.VerticesNumber; y++)
+                    {
+                        Matrix newMatrix = new Matrix(M.Graph);
+                        newMatrix.InsertOnesToMatrixAt(x, y, B);
+                        if (newMatrix.EdgesNumber < minCommonEdges)
+                        {
+                            minCommonEdges = newMatrix.EdgesNumber;
+                            SmallestSuperGraph = newMatrix;
+                        }
+                    }
+                }
+            }
+            return SmallestSuperGraph;
         }
     }
 }
