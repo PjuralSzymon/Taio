@@ -23,13 +23,16 @@ namespace AlgorithmsComputabilityProject
             foreach (int[] array in Permutations)
             {
                 Matrix newMatrix = new Matrix(M.Graph);
-                for(int i = 0; i < array.Length; i++)
+                for (int j = 0; j < array.Length; j++)
                 {
-                    if (array[i] != i)
+                    for (int i = 0; i < array.Length; i++)
                     {
-                        newMatrix.SwapColumn(array[i], i);
-                        newMatrix.SwapRow(array[i], i);
-                        Permutation.Swap(array, array[i], i);
+                        if (array[i] != i)
+                        {
+                            newMatrix.SwapColumn(array[i], i);
+                            newMatrix.SwapRow(array[i], i);
+                            Permutation.Swap(array, array[i], i);
+                        }
                     }
                 }
                 yield return newMatrix;

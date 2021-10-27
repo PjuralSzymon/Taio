@@ -6,7 +6,8 @@ namespace AlgorithmsComputabilityProject
     {
         static void Main(string[] args)
         {
-            RunAlgorithm();
+            TestSort();
+            //RunAlgorithm();
             //TestSwap();
         }
 
@@ -31,6 +32,14 @@ namespace AlgorithmsComputabilityProject
             m1.SwapColumn(1, 2);
             m1.Print();
             m1.SwapRow(2, 4);
+            m1.Print();
+        }
+
+        static void TestSort()
+        {
+            (Matrix m1, Matrix m2) = FileReader.Read("../../../matrix_1.txt");
+            m1.Print();
+            m1.TransformToSortedForm();
             m1.Print();
         }
     }

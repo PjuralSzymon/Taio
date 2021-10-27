@@ -134,6 +134,7 @@ namespace AlgorithmsComputabilityProject
                 {
                     Console.Write(Graph[i][j] + " ");
                 }
+                Console.Write(" |" + GetVertexDegree(i));
                 Console.WriteLine();
             }
             Console.WriteLine(" ");
@@ -179,6 +180,52 @@ namespace AlgorithmsComputabilityProject
             }
         }
 
-        
+        public void TransformToSortedForm()
+        {
+            //Sorting:
+            int[] sortedVertexIndexes = new int[VerticesNumber];
+
+            for (int i = 0; i < VerticesNumber; i++)
+                sortedVertexIndexes[i] = i;
+
+            for (int i = 0; i < sortedVertexIndexes.Length; i++)
+            {
+                for(int j = i+1; j< sortedVertexIndexes.Length; j++)
+                {
+                    int index_a = sortedVertexIndexes[i];
+                    int index_b = sortedVertexIndexes[j];
+
+                    if (GetVertexDegree(index_a) < GetVertexDegree(index_b))
+                    {
+                        sortedVertexIndexes[i] = index_b;
+                        sortedVertexIndexes[j] = index_a;
+                    }
+                }
+            }
+
+            //Transforming matrix
+            for (int j = 0; j < sortedVertexIndexes.Length; j++)
+            {
+                for (int i = 0; i < sortedVertexIndexes.Length; i++)
+                {
+                    if (sortedVertexIndexes[i] != i)
+                    {
+                        //SwapColumn(sortedVertexIndexes[i], i);
+                        SwapRow(sortedVertexIndexes[i], i);
+                        Permutation.Swap(sortedVertexIndexes, sortedVertexIndexes[i], i);
+                    }
+                }
+            }
+        }
+
+        public int GetVertexDegree(int id)
+        {
+            int sum = 0;
+            for(int x=0;x<VerticesNumber;x++)
+            {
+                sum += Graph[id][x];
+            }
+            return sum;
+        }
     }
 }
