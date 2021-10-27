@@ -26,16 +26,6 @@ namespace AlgorithmsComputabilityProject
                 {
                     for (int y = 0; y <= M.VerticesNumber - B.VerticesNumber; y++)
                     {
-                        //foreach (Matrix N in new IsomorphicGenerator(B))
-                        //{
-                        //    Matrix subMatrix = M.GetSubMatrix(x, y, N.VerticesNumber);
-                        //    subMatrix = Matrix.FindCommonMatrix(subMatrix, N);
-                        //    if (subMatrix.EdgesNumber > maxCommonEdges)
-                        //    {
-                        //        maxCommonEdges = subMatrix.EdgesNumber;
-                        //        BiggestSubGraph = subMatrix;
-                        //    }
-                        //}
                         Matrix subMatrix = M.GetSubMatrix(x, y, B.VerticesNumber);
                         Matrix commonMatrix = Matrix.FindCommonMatrix(subMatrix, B);
                         if (commonMatrix.EdgesNumber > maxCommonEdges)
@@ -77,6 +67,37 @@ namespace AlgorithmsComputabilityProject
                 }
             }
             return SmallestSuperGraph;
+        }
+
+        //Approximate:
+
+        public static Matrix FindMaximalSubGraphApproximate(Matrix A, Matrix B)
+        {
+            if (A.VerticesNumber < B.VerticesNumber)
+            {
+                Matrix tmp = B;
+                B = A;
+                A = tmp;
+            }
+            A.TransformToSortedForm();
+            B.TransformToSortedForm();
+            Matrix biggestSubGraph = null;
+            int maxCommonEdges = 0;
+            for (int x = 0; x <= A.VerticesNumber - B.VerticesNumber; x++)
+            {
+                for (int y = 0; y <= A.VerticesNumber - B.VerticesNumber; y++)
+                {
+                    Matrix subMatrix = A.GetSubMatrix(x, y, B.VerticesNumber);
+                    Matrix commonMatrix = Matrix.FindCommonMatrix(subMatrix, B);
+                    if (commonMatrix.EdgesNumber > maxCommonEdges)
+                    {
+                        maxCommonEdges = commonMatrix.EdgesNumber;
+                        biggestSubGraph = commonMatrix;
+                    }
+                }
+
+            }
+            return biggestSubGraph;
         }
     }
 }

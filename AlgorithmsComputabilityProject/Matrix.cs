@@ -134,7 +134,7 @@ namespace AlgorithmsComputabilityProject
                 {
                     Console.Write(Graph[i][j] + " ");
                 }
-                Console.Write(" |" + GetVertexDegree(i));
+                Console.Write(" |" + GetVertexDegreeRow(i));
                 Console.WriteLine();
             }
             Console.WriteLine(" ");
@@ -182,48 +182,35 @@ namespace AlgorithmsComputabilityProject
 
         public void TransformToSortedForm()
         {
-            //Sorting:
-            int[] sortedVertexIndexes = new int[VerticesNumber];
-
-            for (int i = 0; i < VerticesNumber; i++)
-                sortedVertexIndexes[i] = i;
-
-            for (int i = 0; i < sortedVertexIndexes.Length; i++)
+            for (int i=0;i<VerticesNumber;i++)
             {
-                for(int j = i+1; j< sortedVertexIndexes.Length; j++)
+                for(int j=0;j<VerticesNumber;j++)
                 {
-                    int index_a = sortedVertexIndexes[i];
-                    int index_b = sortedVertexIndexes[j];
-
-                    if (GetVertexDegree(index_a) < GetVertexDegree(index_b))
+                    if (GetVertexDegreeRow(i) + GetVertexDegreeCol(i) > GetVertexDegreeRow(j) + GetVertexDegreeCol(j))
                     {
-                        sortedVertexIndexes[i] = index_b;
-                        sortedVertexIndexes[j] = index_a;
-                    }
-                }
-            }
-
-            //Transforming matrix
-            for (int j = 0; j < sortedVertexIndexes.Length; j++)
-            {
-                for (int i = 0; i < sortedVertexIndexes.Length; i++)
-                {
-                    if (sortedVertexIndexes[i] != i)
-                    {
-                        //SwapColumn(sortedVertexIndexes[i], i);
-                        SwapRow(sortedVertexIndexes[i], i);
-                        Permutation.Swap(sortedVertexIndexes, sortedVertexIndexes[i], i);
+                        SwapColumn(i, j);
+                        SwapRow(i, j);
                     }
                 }
             }
         }
 
-        public int GetVertexDegree(int id)
+        public int GetVertexDegreeRow(int id)
         {
             int sum = 0;
             for(int x=0;x<VerticesNumber;x++)
             {
                 sum += Graph[id][x];
+            }
+            return sum;
+        }
+
+        public int GetVertexDegreeCol(int id)
+        {
+            int sum = 0;
+            for (int x = 0; x < VerticesNumber; x++)
+            {
+                sum += Graph[x][id];
             }
             return sum;
         }

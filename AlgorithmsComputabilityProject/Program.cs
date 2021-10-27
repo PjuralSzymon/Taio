@@ -6,23 +6,29 @@ namespace AlgorithmsComputabilityProject
     {
         static void Main(string[] args)
         {
-            TestSort();
-            //RunAlgorithm();
+            //TestSort();
+            RunAlgorithm();
             //TestSwap();
         }
 
         static void RunAlgorithm()
         {
-            (Matrix m1, Matrix m2) = FileReader.Read("../../../matrix_2.txt");
+            (Matrix m1, Matrix m2) = FileReader.Read("../../../matrix_3.txt");
             m1.Print();
             m2.Print();
             Console.WriteLine("Maximal sub graph: ");
             Matrix MaxSubGraph = Algorithm.FindMaximalSubGraph(m1, m2);
             MaxSubGraph.Print();
 
+            Console.WriteLine("Maximal Approximate sub graph: ");
+            Matrix AppMaxSubGraph = Algorithm.FindMaximalSubGraphApproximate(m1, m2);
+            AppMaxSubGraph.Print();
+
             Console.WriteLine("Minimal super graph: ");
             Matrix MinSuperGraph = Algorithm.FindMinimalSuperGraph(m1, m2);
             MinSuperGraph.Print();
+
+
         }
 
         static void TestSwap()
@@ -37,7 +43,7 @@ namespace AlgorithmsComputabilityProject
 
         static void TestSort()
         {
-            (Matrix m1, Matrix m2) = FileReader.Read("../../../matrix_1.txt");
+            (Matrix m1, Matrix m2) = FileReader.Read("../../../matrix_3.txt");
             m1.Print();
             m1.TransformToSortedForm();
             m1.Print();
