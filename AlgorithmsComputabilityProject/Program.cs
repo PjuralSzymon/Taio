@@ -6,10 +6,12 @@ namespace AlgorithmsComputabilityProject
     {
         static void Main(string[] args)
         {
-            TestGenerate();
+            //TestGenerate();
             //TestSort();
             //RunAlgorithm();
             //TestSwap();
+            ConsoleMenu consoleMenu = new ConsoleMenu();
+            consoleMenu.RunConsoleMenu(args);
         }
 
         static void RunAlgorithm()
@@ -54,7 +56,7 @@ namespace AlgorithmsComputabilityProject
 
         static void TestGenerate()
         {
-            Matrix rand = GraphGenerator.getRandomMatrix(10);
+            Matrix rand = GraphGenerator.GetRandomMatrix(10);
             rand.Print();
         }
     }

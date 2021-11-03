@@ -1,28 +1,24 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AlgorithmsComputabilityProject
 {
-    public class GraphGenerator
+    public static class GraphGenerator
     {
-        public static Matrix getRandomMatrix(int size)
+        public static Matrix GetRandomMatrix(int size)
         {
-            return new Matrix(getRandomGraph(size));
+            return new Matrix(GetRandomGraph(size));
         }
 
-        public static int[][] getRandomGraph(int size)
+        public static int[][] GetRandomGraph(int size)
         {
             Random rnd = new Random();
             int[][] randGraph = new int[size][];
             Matrix.InitializeArrays(randGraph, size);
-            for(int x=0;x<size;x++)
+            for (int x = 0; x < size; x++)
             {
-                for(int y=0;y<size;y++)
+                for (int y = 0; y < size; y++)
                 {
-                    if(x!=y)
+                    if (x != y)
                     {
                         randGraph[x][y] = rnd.Next(0, 100) % 2;
                     }
