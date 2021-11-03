@@ -71,7 +71,7 @@ namespace AlgorithmsComputabilityProject
 
         //Approximate:
 
-        public static Matrix FindMaximalSubGraphApproximate(Matrix A, Matrix B)
+        public static Matrix FindMaximalSubGraphApproximate(Matrix A, Matrix B,bool sort=true)
         {
             if (A.VerticesNumber < B.VerticesNumber)
             {
@@ -79,8 +79,11 @@ namespace AlgorithmsComputabilityProject
                 B = A;
                 A = tmp;
             }
-            //A.TransformToSortedForm();
-            //B.TransformToSortedForm();
+            if (sort)
+            {
+                A.TransformToSortedForm();
+                B.TransformToSortedForm();
+            }
             Matrix biggestSubGraph = null;
             int maxCommonEdges = 0;
             for (int x = 0; x <= A.VerticesNumber - B.VerticesNumber; x++)
@@ -99,5 +102,38 @@ namespace AlgorithmsComputabilityProject
             }
             return biggestSubGraph;
         }
+
+        public static Matrix FindMinimalSuperGraphApproximate(Matrix A, Matrix B,bool sort=true)
+        {
+            if (A.VerticesNumber < B.VerticesNumber)
+            {
+                Matrix tmp = B;
+                B = A;
+                A = tmp;
+            }
+
+            if (sort)
+            {
+                A.TransformToSortedForm();
+                B.TransformToSortedForm();
+            }
+            Matrix SmallestSuperGraph = null;
+            int minCommonEdges = int.MaxValue;
+            for (int x = 0; x <= A.VerticesNumber - B.VerticesNumber; x++)
+            {
+                for (int y = 0; y <= A.VerticesNumber - B.VerticesNumber; y++)
+                {
+                    Matrix newMatrix = new Matrix(A.Graph);
+                    newMatrix.InsertOnesToMatrixAt(x, y, B);
+                    if (newMatrix.EdgesNumber < minCommonEdges)
+                    {
+                        minCommonEdges = newMatrix.EdgesNumber;
+                        SmallestSuperGraph = newMatrix;
+                    }
+                }
+            }
+            return SmallestSuperGraph;
+        }
+
     }
 }

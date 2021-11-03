@@ -6,14 +6,14 @@ namespace AlgorithmsComputabilityProject
     {
         static void Main(string[] args)
         {
-            TestSort();
-            //RunAlgorithm();
+            //TestSort();
+            RunAlgorithm();
             //TestSwap();
         }
 
         static void RunAlgorithm()
         {
-            (Matrix m1, Matrix m2) = FileReader.Read("../../../matrix_3.txt");
+            (Matrix m1, Matrix m2) = FileReader.Read("../../../matrix_4.txt");
             m1.Print();
             m2.Print();
             Console.WriteLine("Maximal sub graph: ");
@@ -28,7 +28,9 @@ namespace AlgorithmsComputabilityProject
             Matrix MinSuperGraph = Algorithm.FindMinimalSuperGraph(m1, m2);
             MinSuperGraph.Print();
 
-
+            Console.WriteLine("Minimal Approximate super graph: ");
+            Matrix AppMinSuperGraph = Algorithm.FindMinimalSuperGraph(m1, m2);
+            AppMinSuperGraph.Print();
         }
 
         static void TestSwap()
