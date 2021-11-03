@@ -6,8 +6,9 @@ namespace AlgorithmsComputabilityProject
     {
         static void Main(string[] args)
         {
+            TestGenerate();
             //TestSort();
-            RunAlgorithm();
+            //RunAlgorithm();
             //TestSwap();
         }
 
@@ -49,6 +50,12 @@ namespace AlgorithmsComputabilityProject
             m1.Print();
             m1.TransformToSortedForm();
             m1.Print();
+        }
+
+        static void TestGenerate()
+        {
+            Matrix rand = GraphGenerator.getRandomMatrix(10);
+            rand.Print();
         }
     }
 }
