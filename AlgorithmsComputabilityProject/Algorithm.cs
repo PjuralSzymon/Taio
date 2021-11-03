@@ -79,8 +79,8 @@ namespace AlgorithmsComputabilityProject
                 B = A;
                 A = tmp;
             }
-            A.TransformToSortedForm();
-            B.TransformToSortedForm();
+            //A.TransformToSortedForm();
+            //B.TransformToSortedForm();
             Matrix biggestSubGraph = null;
             int maxCommonEdges = 0;
             for (int x = 0; x <= A.VerticesNumber - B.VerticesNumber; x++)

@@ -6,8 +6,8 @@ namespace AlgorithmsComputabilityProject
     {
         static void Main(string[] args)
         {
-            //TestSort();
-            RunAlgorithm();
+            TestSort();
+            //RunAlgorithm();
             //TestSwap();
         }
 
