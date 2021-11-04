@@ -134,7 +134,7 @@ namespace AlgorithmsComputabilityProject
                 {
                     Console.Write(Graph[i][j] + " ");
                 }
-                Console.Write(" |" + GetVertexDegreeRow(i));
+                //Console.Write(" |" + GetVertexDegreeRow(i));
                 Console.WriteLine();
             }
             Console.WriteLine(" ");

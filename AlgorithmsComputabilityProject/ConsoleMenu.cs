@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.IO;
 
 namespace AlgorithmsComputabilityProject
 {
@@ -10,6 +8,7 @@ namespace AlgorithmsComputabilityProject
     {
         private List<int> ChosenSizes { get; set; } = new List<int>();
         private List<Matrix> GeneratedMatrices { get; set; } = new List<Matrix>();
+        private Dictionary<string, Matrix> CalculatedMatrices { get; set; } = new Dictionary<string, Matrix>();
         private bool IsExactAlgorithmApplicable
         {
             get
@@ -34,10 +33,19 @@ namespace AlgorithmsComputabilityProject
 
                     switch (key)
                     {
-                        case '1': DisplayOptionsForRandomGraphs(); break;
-                        case '2': DisplayOptionsForSpecifiedGraphs(); break;
-                        case 'q': flag = false; Console.WriteLine(); break;
-                        default: Console.WriteLine("\nInvalid option selected.\n"); break;
+                        case '1':
+                            DisplayOptionsForRandomGraphs();
+                            break;
+                        case '2':
+                            DisplayOptionsForSpecifiedGraphs();
+                            break;
+                        case 'q':
+                            flag = false;
+                            Console.WriteLine();
+                            break;
+                        default:
+                            Console.WriteLine("\nInvalid option selected.\n");
+                            break;
                     }
                 }
             }
@@ -86,45 +94,205 @@ namespace AlgorithmsComputabilityProject
 
                 switch (key)
                 {
-                    case '1': GeneratedMatrices[0].Print(); break;
-                    case '2': GeneratedMatrices[1].Print(); break;
-                    case '3': Algorithm.FindMaximalSubGraphApproximate(GeneratedMatrices[0], GeneratedMatrices[1]).Print(); break;
-                    case '4': Algorithm.FindMinimalSuperGraphApproximate(GeneratedMatrices[0], GeneratedMatrices[1]).Print(); break;
+                    case '1':
+                        GeneratedMatrices[0].Print();
+                        break;
+                    case '2':
+                        GeneratedMatrices[1].Print();
+                        break;
+                    case '3':
+                        if (!CalculatedMatrices.ContainsKey("ApproximateMaximalSubGraph"))
+                        {
+                            Console.WriteLine("Calculating the solution...");
+                            CalculatedMatrices.Add("ApproximateMaximalSubGraph",
+                                Algorithm.FindMaximalSubGraphApproximate(GeneratedMatrices[0], GeneratedMatrices[1]));
+                        }
+                        CalculatedMatrices["ApproximateMaximalSubGraph"].Print();
+                        break;
+                    case '4':
+                        if (!CalculatedMatrices.ContainsKey("ApproximateMinimalSuperGraph"))
+                        {
+                            Console.WriteLine("Calculating the solution...");
+                            CalculatedMatrices.Add("ApproximateMinimalSuperGraph",
+                                Algorithm.FindMinimalSuperGraphApproximate(GeneratedMatrices[0], GeneratedMatrices[1]));
+                        }
+                        CalculatedMatrices["ApproximateMinimalSuperGraph"].Print();
+                        break;
                     case '5':
-                        if (IsExactAlgorithmApplicable) Algorithm.FindMaximalSubGraph(GeneratedMatrices[0], GeneratedMatrices[1]).Print();
+                        if (IsExactAlgorithmApplicable)
+                        {
+                            if (!CalculatedMatrices.ContainsKey("ExactMaximalSubGraph"))
+                            {
+                                Console.WriteLine("Calculating the solution...");
+                                CalculatedMatrices.Add("ExactMaximalSubGraph",
+                                    Algorithm.FindMaximalSubGraph(GeneratedMatrices[0], GeneratedMatrices[1]));
+                            }
+                            CalculatedMatrices["ExactMaximalSubGraph"].Print();
+                        }
                         else Console.WriteLine("Not applicable for graphs bigger than 10 vertices");
                         break;
                     case '6':
-                        if (IsExactAlgorithmApplicable) Algorithm.FindMinimalSuperGraph(GeneratedMatrices[0], GeneratedMatrices[1]).Print();
+                        if (IsExactAlgorithmApplicable)
+                        {
+                            if (!CalculatedMatrices.ContainsKey("ExactMinimalSuperGraph"))
+                            {
+                                Console.WriteLine("Calculating the solution...");
+                                CalculatedMatrices.Add("ExactMinimalSuperGraph",
+                                    Algorithm.FindMinimalSuperGraph(GeneratedMatrices[0], GeneratedMatrices[1]));
+                            }
+                            CalculatedMatrices["ExactMinimalSuperGraph"].Print();
+                        }
                         else Console.WriteLine("Not applicable for graphs bigger than 10 vertices");
                         break;
-                    case 'r': ChosenSizes.Clear(); GeneratedMatrices.Clear(); Console.WriteLine(); break;
-                    case 'b': flag = false; Console.WriteLine(); break;
-                    default: Console.WriteLine("\nInvalid option selected.\n"); break;
+                    case 'r':
+                        ChosenSizes.Clear();
+                        GeneratedMatrices.Clear();
+                        CalculatedMatrices.Clear();
+                        Console.WriteLine();
+                        break;
+                    case 'b':
+                        flag = false;
+                        Console.WriteLine();
+                        break;
+                    default:
+                        Console.WriteLine("\nInvalid option selected.\n");
+                        break;
                 }
             }
         }
 
         private static int ReadInteger()
         {
-            string input = Console.ReadLine();
-            int size;
-            while (!Int32.TryParse(input, out size) && size < 2)
+            int size = 0;
+            while (size < 2)
             {
-                Console.WriteLine("Please provide a valid value for size:");
-                input = Console.ReadLine();
-            }
-            if (size < 2)
-            {
-                Console.WriteLine("The graph should have at least 2 vertices. Please provide a valid value for size:");
-                input = Console.ReadLine();
+                string input = Console.ReadLine();
+                while (!Int32.TryParse(input, out size))
+                {
+                    Console.WriteLine("Please provide a valid value for size:");
+                    input = Console.ReadLine();
+                }
+                if (size < 2)
+                {
+                    Console.WriteLine("The graph should have at least 2 vertices. Please provide a valid value for size:");
+                }
             }
             return size;
         }
 
-        private static void DisplayOptionsForSpecifiedGraphs()
+        private void DisplayOptionsForSpecifiedGraphs()
         {
+            Console.WriteLine("Note: If size of a graph is bigger than 10, only approximate algorithms will be available.");
+            Console.WriteLine("Please write global path to the file with matrices:");
 
+            string input = Console.ReadLine();
+
+            while (!File.Exists(input))
+            {
+                Console.WriteLine("File wasn't found! Please supply correct global path or press 1 to go back.");
+                input = Console.ReadLine();
+                if (input == "1")
+                {
+                    return;
+                }
+            }
+
+            try
+            {
+                (Matrix m1, Matrix m2) = FileReader.Read(input);
+                GeneratedMatrices.Add(m1);
+                GeneratedMatrices.Add(m2);
+                ChosenSizes.Add(m1.VerticesNumber);
+                ChosenSizes.Add(m2.VerticesNumber);
+            }
+            catch
+            {
+                Console.WriteLine("File deserialization went wrong. Going back to main menu");
+                return;
+            }
+            Console.WriteLine();
+
+            bool flag = true;
+            while (flag)
+            {
+                Console.WriteLine("Graphs deserialized! Please press a key to choose an option:");
+                Console.WriteLine("1 - Print the first graph");
+                Console.WriteLine("2 - Print the second graph");
+                Console.WriteLine("3 - Show the Approximate Maximal Common Subgraph");
+                Console.WriteLine("4 - Show the Approximate Minimal Common Supergraph");
+                if (ChosenSizes[0] < 11 && ChosenSizes[1] < 11)
+                {
+                    Console.WriteLine("5 - Show the Exact Maximal Common Subgraph");
+                    Console.WriteLine("6 - Show the Exact Minimal Common Supergraph");
+                }
+                Console.WriteLine("b - Go back - this option will reset the graphs");
+                char key = Console.ReadKey().KeyChar;
+                Console.WriteLine();
+
+                switch (key)
+                {
+                    case '1':
+                        GeneratedMatrices[0].Print();
+                        break;
+                    case '2':
+                        GeneratedMatrices[1].Print();
+                        break;
+                    case '3':
+                        if (!CalculatedMatrices.ContainsKey("ApproximateMaximalSubGraph"))
+                        {
+                            Console.WriteLine("Calculating the solution...");
+                            CalculatedMatrices.Add("ApproximateMaximalSubGraph",
+                                Algorithm.FindMaximalSubGraphApproximate(GeneratedMatrices[0], GeneratedMatrices[1]));
+                        }
+                        CalculatedMatrices["ApproximateMaximalSubGraph"].Print();
+                        break;
+                    case '4':
+                        if (!CalculatedMatrices.ContainsKey("ApproximateMinimalSuperGraph"))
+                        {
+                            Console.WriteLine("Calculating the solution...");
+                            CalculatedMatrices.Add("ApproximateMinimalSuperGraph",
+                                Algorithm.FindMinimalSuperGraphApproximate(GeneratedMatrices[0], GeneratedMatrices[1]));
+                        }
+                        CalculatedMatrices["ApproximateMinimalSuperGraph"].Print();
+                        break;
+                    case '5':
+                        if (IsExactAlgorithmApplicable)
+                        {
+                            if (!CalculatedMatrices.ContainsKey("ExactMaximalSubGraph"))
+                            {
+                                Console.WriteLine("Calculating the solution...");
+                                CalculatedMatrices.Add("ExactMaximalSubGraph",
+                                    Algorithm.FindMaximalSubGraph(GeneratedMatrices[0], GeneratedMatrices[1]));
+                            }
+                            CalculatedMatrices["ExactMaximalSubGraph"].Print();
+                        }
+                        else Console.WriteLine("Not applicable for graphs bigger than 10 vertices");
+                        break;
+                    case '6':
+                        if (IsExactAlgorithmApplicable)
+                        {
+                            if (!CalculatedMatrices.ContainsKey("ExactMinimalSuperGraph"))
+                            {
+                                Console.WriteLine("Calculating the solution...");
+                                CalculatedMatrices.Add("ExactMinimalSuperGraph",
+                                    Algorithm.FindMinimalSuperGraph(GeneratedMatrices[0], GeneratedMatrices[1]));
+                            }
+                            CalculatedMatrices["ExactMinimalSuperGraph"].Print();
+                        }
+                        else Console.WriteLine("Not applicable for graphs bigger than 10 vertices");
+                        break;
+                    case 'b':
+                        ChosenSizes.Clear();
+                        GeneratedMatrices.Clear();
+                        CalculatedMatrices.Clear();
+                        flag = false;
+                        Console.WriteLine();
+                        break;
+                    default:
+                        Console.WriteLine("\nInvalid option selected.\n");
+                        break;
+                }
+            }
         }
 
         private static void DisplayException(Exception ex)
