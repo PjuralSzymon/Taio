@@ -124,8 +124,10 @@ namespace AlgorithmsComputabilityProject
             return counter;
         }
 
-        public void Print()
+        public void Print(string graphType)
         {
+            Console.WriteLine();
+            Console.WriteLine("**** " + graphType.ToUpper() +" ****");
             Console.WriteLine("Matrix vertices: " + VerticesNumber);
             Console.WriteLine("Matrix edges: " + EdgesNumber);
             for (int i = 0; i < VerticesNumber; i++)
@@ -160,9 +162,9 @@ namespace AlgorithmsComputabilityProject
 
         public void InsertOnesToMatrixAt(int x, int y, Matrix M)
         {
-            for(int i=x;i<VerticesNumber && i-x<M.VerticesNumber;i++)
+            for(int i = x; i < VerticesNumber && i - x < M.VerticesNumber; i++)
             {
-                for(int j=y;j<VerticesNumber && j-y<M.VerticesNumber;j++)
+                for(int j = y; j < VerticesNumber && j - y < M.VerticesNumber; j++)
                 {
                     if (M.Graph[i - x][j - y] == 1)
                     {
@@ -182,9 +184,9 @@ namespace AlgorithmsComputabilityProject
 
         public void TransformToSortedForm()
         {
-            for (int i=0;i<VerticesNumber;i++)
+            for (int i = 0; i < VerticesNumber; i++)
             {
-                for(int j=0;j<VerticesNumber;j++)
+                for(int j = 0; j < VerticesNumber; j++)
                 {
                     if (GetVertexDegreeRow(i) + GetVertexDegreeCol(i) > GetVertexDegreeRow(j) + GetVertexDegreeCol(j))
                     {
@@ -195,17 +197,17 @@ namespace AlgorithmsComputabilityProject
             }
         }
 
-        public int GetVertexDegreeRow(int id)
+        private int GetVertexDegreeRow(int id)
         {
             int sum = 0;
-            for(int x=0;x<VerticesNumber;x++)
+            for(int x = 0; x < VerticesNumber; x++)
             {
                 sum += Graph[id][x];
             }
             return sum;
         }
 
-        public int GetVertexDegreeCol(int id)
+        private int GetVertexDegreeCol(int id)
         {
             int sum = 0;
             for (int x = 0; x < VerticesNumber; x++)

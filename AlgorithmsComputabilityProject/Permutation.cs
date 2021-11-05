@@ -25,15 +25,6 @@ namespace AlgorithmsComputabilityProject
             return result;
         }
 
-
-        // skopiowane z wypizdowa DO SPRAWDZENIA : !!!!
-        // skopiowane z wypizdowa DO SPRAWDZENIA : !!!!
-        // skopiowane z wypizdowa DO SPRAWDZENIA : !!!!
-        // skopiowane z wypizdowa DO SPRAWDZENIA : !!!! XDDDDDD
-        // skopiowane z wypizdowa DO SPRAWDZENIA : !!!!
-        // skopiowane z wypizdowa DO SPRAWDZENIA : !!!!
-        // skopiowane z wypizdowa DO SPRAWDZENIA : !!!! (tylko przerobiłem na int z stringu
-
         private void Permute(int[] data, int start, int end)
         {
             int[] copiedData = new int[data.Length];
