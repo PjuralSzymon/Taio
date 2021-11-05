@@ -127,9 +127,9 @@ namespace AlgorithmsComputabilityProject
         public void Print(string graphType)
         {
             Console.WriteLine();
-            Console.WriteLine("**** " + graphType.ToUpper() +" ****");
-            Console.WriteLine("Matrix vertices: " + VerticesNumber);
-            Console.WriteLine("Matrix edges: " + EdgesNumber);
+            Console.WriteLine("**** " + graphType.ToUpper() + " ****");
+            Console.WriteLine("Vertices: " + VerticesNumber);
+            Console.WriteLine("Edges: " + EdgesNumber);
             for (int i = 0; i < VerticesNumber; i++)
             {
                 for (int j = 0; j < VerticesNumber; j++)

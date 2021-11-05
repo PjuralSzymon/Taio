@@ -9,7 +9,7 @@ namespace AlgorithmsComputabilityProject
             return new Matrix(GetRandomGraph(size));
         }
 
-        public static int[][] GetRandomGraph(int size)
+        private static int[][] GetRandomGraph(int size)
         {
             Random rnd = new Random();
             int[][] randGraph = new int[size][];
@@ -20,7 +20,7 @@ namespace AlgorithmsComputabilityProject
                 {
                     if (x != y)
                     {
-                        randGraph[x][y] = rnd.Next(0, 100) % 2;
+                        randGraph[x][y] = rnd.Next(0, 100) <= 60 ? 0 : 1;
                     }
                 }
             }
