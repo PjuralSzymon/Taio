@@ -87,7 +87,6 @@ namespace AlgorithmsComputabilityProject
                     Console.WriteLine("5 - Show the Exact Maximal Common Subgraph");
                     Console.WriteLine("6 - Show the Exact Minimal Common Supergraph");
                 }
-                Console.WriteLine("r - Reset the graphs and choose new sizes");
                 Console.WriteLine("b - Go back");
                 char key = Console.ReadKey().KeyChar;
                 Console.WriteLine();
@@ -143,12 +142,6 @@ namespace AlgorithmsComputabilityProject
                             CalculatedMatrices["ExactMinimalSuperGraph"].Print("Minimal Common Supergraph (Exact)");
                         }
                         else Console.WriteLine("Not applicable for graphs bigger than 10 vertices");
-                        break;
-                    case 'r':
-                        ChosenSizes.Clear();
-                        GeneratedMatrices.Clear();
-                        CalculatedMatrices.Clear();
-                        Console.WriteLine();
                         break;
                     case 'b':
                         flag = false;
