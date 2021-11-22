@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AlgorithmsComputabilityProject.Tester;
+using System;
 
 namespace AlgorithmsComputabilityProject
 {
@@ -10,8 +11,9 @@ namespace AlgorithmsComputabilityProject
             //TestSort();
             //RunAlgorithm();
             //TestSwap();
-            ConsoleMenu consoleMenu = new ConsoleMenu();
-            consoleMenu.RunConsoleMenu(args);
+            //ConsoleMenu consoleMenu = new ConsoleMenu();
+            //consoleMenu.RunConsoleMenu(args);
+            KoksTester3000.RunTests();
         }
 
         static void RunAlgorithm()
