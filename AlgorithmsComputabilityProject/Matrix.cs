@@ -127,11 +127,92 @@ namespace AlgorithmsComputabilityProject
         public void Print(string graphType)
         {
             Console.WriteLine();
-            Console.WriteLine("**** " + graphType.ToUpper() + " ****");
-            Console.WriteLine(" Vertices: " + VerticesNumber);
-            Console.WriteLine(" Edges: " + EdgesNumber);
+            Console.WriteLine("   **** " + graphType.ToUpper() + " ****");
+            Console.WriteLine("    Vertices: " + VerticesNumber);
+            Console.WriteLine("    Edges: " + EdgesNumber);
+            Console.WriteLine();
+
+            int padLength = this.VerticesNumber * 3 + 4;
             for (int i = 0; i < VerticesNumber; i++)
             {
+                string row = "", cols = "";
+                for (int j = 0; j < VerticesNumber; j++)
+                {
+                    if (j <= 8) cols += $"  {j + 1}";
+                    else if (j > 8) cols += $" {j + 1}";
+                    row += "  " + this.Graph[i][j];
+                }
+                if (i == 0)
+                {
+                    Console.WriteLine("   |" + cols);
+                    Console.WriteLine("".PadLeft(padLength, '-'));
+                }
+                Console.WriteLine($"{i + 1}".PadRight(2) + " |" + row);
+            }
+            Console.WriteLine(" ");
+        }
+
+        public void PrintNextTo(Matrix matrix2)
+        {
+            string separator = "            ";
+            int padLength = 14, strlen = 6;
+            if (this.VerticesNumber * 3 + 4 > padLength) 
+                padLength = this.VerticesNumber * 3 + 4;
+
+            //int padLeft = (padLength - strlen) / 2 + strlen;
+            Console.WriteLine();
+            Console.WriteLine("   GRAPH 1".PadRight(padLength) + separator + "   GRAPH 2");
+            Console.WriteLine($"   Vertices: {VerticesNumber}".PadRight(padLength) + separator + $"   Vertices: {matrix2.VerticesNumber}");
+            Console.WriteLine($"   Edges: {EdgesNumber}".PadRight(padLength) + separator + $"   Edges: {matrix2.EdgesNumber}");
+            Console.WriteLine();
+
+            int maxVertices = VerticesNumber > matrix2.VerticesNumber ? VerticesNumber : matrix2.VerticesNumber;
+            for (int i = 0; i < maxVertices; i++)
+            {
+                string row1 = "", row2 = "";
+                string cols1 = "", cols2 = "";
+                for (int j = 0; j < maxVertices; j++)
+                {
+                    if (i == 0)
+                    {
+                        if (j <= 8 && j < VerticesNumber) cols1 += $"  {j + 1}";
+                        else if (j > 8 && j < VerticesNumber) cols1 += $" {j + 1}";
+                        if (j <= 8 && j < matrix2.VerticesNumber) cols2 += $"  {j + 1}";
+                        else if (j > 8 && j < matrix2.VerticesNumber) cols2 += $" {j + 1}";
+                    }
+
+                    if (i < VerticesNumber && j < VerticesNumber)
+                        row1 += "  " + this.Graph[i][j];
+                    if (i < matrix2.VerticesNumber && j < matrix2.VerticesNumber)
+                        row2 += "  " + matrix2.Graph[i][j];
+                }
+                if (i == 0) 
+                {
+                    Console.WriteLine("   |" + cols1 + separator + "   |" + cols2);
+                    Console.WriteLine("".PadRight(4 + cols1.Length, '-') + separator + "".PadRight(4 + cols2.Length, '-'));
+                }
+                if (row1 != "")
+                    Console.Write($"{i + 1}".PadRight(2) + " |" + row1 + separator);
+                else
+                    Console.Write("".PadLeft(padLength) + separator);
+                if (row2 != "")
+                    Console.Write($"{i + 1}".PadRight(2) + " |" + row2);
+                else
+                    Console.Write("");
+                Console.WriteLine();
+            }
+            Console.WriteLine();
+        }
+
+        public void PrintAlgorithmResult(string graphType)
+        {
+            Console.WriteLine();
+            Console.WriteLine("   **** " + graphType.ToUpper() + " ****");
+            Console.WriteLine("   Vertices: " + VerticesNumber);
+            Console.WriteLine("   Edges: " + EdgesNumber);
+            for (int i = 0; i < VerticesNumber; i++)
+            {
+
                 for (int j = 0; j < VerticesNumber; j++)
                 {
                     Console.Write(Graph[i][j] + " ");
