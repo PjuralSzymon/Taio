@@ -9,14 +9,13 @@ namespace AlgorithmsComputabilityProject
     public class Matrix
     {
         public int VerticesNumber { get; set; }
-        public int EdgesNumber 
-        { 
+        public int EdgesNumber
+        {
             get
             {
                 return CountOnes(this);
             }
         }
-
         public int[][] Graph { get; set; }
 
         public int this[int i, int j]
@@ -188,9 +187,15 @@ namespace AlgorithmsComputabilityProject
             {
                 for(int j = 0; j < VerticesNumber; j++)
                 {
-                    if (GetVertexDegreeRow(i) + GetVertexDegreeCol(i) > GetVertexDegreeRow(j) + GetVertexDegreeCol(j))
+                    //if (GetVertexDegreeRow(i) + GetVertexDegreeCol(i) > GetVertexDegreeRow(j) + GetVertexDegreeCol(j))
+                    //{
+                    //    SwapColumn(i, j);
+                    //    SwapRow(i, j);
+                    //}
+
+                    if (GetVertexDegreeRow(i) > GetVertexDegreeRow(j))
                     {
-                        SwapColumn(i, j);
+                        //SwapColumn(i, j);
                         SwapRow(i, j);
                     }
                 }

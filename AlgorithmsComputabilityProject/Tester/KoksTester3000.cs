@@ -12,9 +12,9 @@ namespace AlgorithmsComputabilityProject.Tester
         public static void RunTests()
         {
             //SpeedTester.RunSpeedTestsForExactAlgorithms(4, 9);
-            SpeedTester.RunSpeedTestsForApproximateAlgorithms(10, 30);
-            QualityTester.ApproximateVersusExact(4, 9);
-            QualityTester.ApproximateSortedVersusUnsorted(10, 30);
+            //SpeedTester.RunSpeedTestsForApproximateAlgorithms(10, 30);
+            //QualityTester.ApproximateVersusExact(4, 9);
+            QualityTester.ApproximateSortedVersusUnsorted(60, 90);
         }
 
         public static List<(Matrix, Matrix)> GimmieSomeMatrices(int sizeOfMatrices, int numberOfMatrices = 10)
