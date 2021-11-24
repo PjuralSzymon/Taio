@@ -1,0 +1,1 @@
+{"Maximum Common Subgraph Exact":[1.5,0.7,9.7,89,414.1,452.2],"Minimal Common Supergraph Exact":[0.1,0.8,8.8,76.3,433,559.9]}

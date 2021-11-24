@@ -8,7 +8,7 @@ namespace AlgorithmsComputabilityProject
 {
     public static class Algorithm
     {
-        public static Matrix FindMaximalSubGraph(Matrix A, Matrix B)
+        public static Matrix FindMaximalSubGraph(Matrix A, Matrix B, bool sort = true)
         {
             if (A.VerticesNumber < B.VerticesNumber)
             {
@@ -39,7 +39,7 @@ namespace AlgorithmsComputabilityProject
             return biggestSubGraph;
         }
 
-        public static Matrix FindMinimalSuperGraph(Matrix A, Matrix B)
+        public static Matrix FindMinimalSuperGraph(Matrix A, Matrix B, bool sort = true)
         {
             if (A.VerticesNumber < B.VerticesNumber)
             {
