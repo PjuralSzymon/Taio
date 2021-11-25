@@ -187,15 +187,9 @@ namespace AlgorithmsComputabilityProject
             {
                 for(int j = 0; j < VerticesNumber; j++)
                 {
-                    //if (GetVertexDegreeRow(i) + GetVertexDegreeCol(i) > GetVertexDegreeRow(j) + GetVertexDegreeCol(j))
-                    //{
-                    //    SwapColumn(i, j);
-                    //    SwapRow(i, j);
-                    //}
-
-                    if (GetVertexDegreeRow(i) > GetVertexDegreeRow(j))
+                    if (GetVertexDegreeRow(i) + GetVertexDegreeCol(i) > GetVertexDegreeRow(j) + GetVertexDegreeCol(j))
                     {
-                        //SwapColumn(i, j);
+                        SwapColumn(i, j);
                         SwapRow(i, j);
                     }
                 }

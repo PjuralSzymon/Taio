@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AlgorithmsComputabilityProject.Tester;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -39,6 +40,38 @@ namespace AlgorithmsComputabilityProject
             }
 
             return (new Matrix(graphA), new Matrix(graphB));
+        }
+
+        public static void Write(Matrix A, Matrix B)
+        {
+            Matrix firstMatrix = A.VerticesNumber >= B.VerticesNumber ? A : B;
+            Matrix secondMatrix = A.VerticesNumber >= B.VerticesNumber ? B : A;
+
+            string content = $"{firstMatrix.VerticesNumber}\n";
+            foreach (int[] row in firstMatrix.Graph)
+            {
+                content += String.Join(" ", row);
+                content += '\n';
+            }
+
+            content += $"{secondMatrix.VerticesNumber}\n";
+            foreach (int[] row in secondMatrix.Graph)
+            {
+                content += String.Join(" ", row);
+                content += '\n';
+            }
+
+            string filename = $"{firstMatrix.VerticesNumber}_{secondMatrix.VerticesNumber}_matrices";
+            string path = Storage.GetPathToExamples(filename);
+            int counter = 1;
+            path += $"{counter}.txt";
+            while (System.IO.File.Exists(path))
+            {
+                counter++;
+                path = path[0..^5];
+                path += $"{counter}.txt";
+            }
+            System.IO.File.WriteAllText(path, content, Encoding.UTF8);
         }
     }
 }
