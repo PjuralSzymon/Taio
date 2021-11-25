@@ -11,20 +11,14 @@ namespace AlgorithmsComputabilityProject
         public int VerticesNumber { get; set; }
         public int EdgesNumber 
         { 
-            get
-            {
-                return CountOnes(this);
-            }
+            get { return CountEdges(this); }
         }
 
         public int[][] Graph { get; set; }
 
         public int this[int i, int j]
         {
-            get
-            { 
-                return Graph[i][j];
-            }
+            get { return Graph[i][j]; }
             set 
             {
                 if (Graph[i][j] == value)
@@ -59,6 +53,19 @@ namespace AlgorithmsComputabilityProject
             Graph = data;
             VerticesNumber = rowCount;
             //EdgesNumber = CountOnes(this);
+        }
+        public static int CountEdges(Matrix M)
+        {
+            int counter = 0;
+            for (int i = 0; i < M.VerticesNumber; i++)
+            {
+                for (int j = 0; j < M.VerticesNumber; j++)
+                {
+                    if (M[i, j] != 0)
+                        counter += 1;
+                }
+            }
+            return counter;
         }
 
         public Matrix GetSubMatrix(int startIndexX, int startIndexY, int size)
@@ -109,120 +116,8 @@ namespace AlgorithmsComputabilityProject
             return A;
         }
 
-        public static int CountOnes(Matrix M)
-        {
-            int counter = 0;
-            for(int i = 0; i < M.VerticesNumber; i++)
-            {
-                for (int j = 0; j < M.VerticesNumber; j++)
-                {
-                    if (M[i, j] != 0)
-                        M[i, j] = 1;
-                    counter += M.Graph[i][j];
-                }
-            }
-            return counter;
-        }
-
-        public void Print(string graphType)
-        {
-            Console.WriteLine();
-            Console.WriteLine("   **** " + graphType.ToUpper() + " ****");
-            Console.WriteLine("    Vertices: " + VerticesNumber);
-            Console.WriteLine("    Edges: " + EdgesNumber);
-            Console.WriteLine();
-
-            int padLength = this.VerticesNumber * 3 + 4;
-            for (int i = 0; i < VerticesNumber; i++)
-            {
-                string row = "", cols = "";
-                for (int j = 0; j < VerticesNumber; j++)
-                {
-                    if (j <= 8) cols += $"  {j + 1}";
-                    else if (j > 8) cols += $" {j + 1}";
-                    row += "  " + this.Graph[i][j];
-                }
-                if (i == 0)
-                {
-                    Console.WriteLine("   |" + cols);
-                    Console.WriteLine("".PadLeft(padLength, '-'));
-                }
-                Console.WriteLine($"{i + 1}".PadRight(2) + " |" + row);
-            }
-            Console.WriteLine(" ");
-        }
-
-        public void PrintNextTo(Matrix matrix2)
-        {
-            string separator = "            ";
-            int padLength = 14, strlen = 6;
-            if (this.VerticesNumber * 3 + 4 > padLength) 
-                padLength = this.VerticesNumber * 3 + 4;
-
-            //int padLeft = (padLength - strlen) / 2 + strlen;
-            Console.WriteLine();
-            Console.WriteLine("   GRAPH 1".PadRight(padLength) + separator + "   GRAPH 2");
-            Console.WriteLine($"   Vertices: {VerticesNumber}".PadRight(padLength) + separator + $"   Vertices: {matrix2.VerticesNumber}");
-            Console.WriteLine($"   Edges: {EdgesNumber}".PadRight(padLength) + separator + $"   Edges: {matrix2.EdgesNumber}");
-            Console.WriteLine();
-
-            int maxVertices = VerticesNumber > matrix2.VerticesNumber ? VerticesNumber : matrix2.VerticesNumber;
-            for (int i = 0; i < maxVertices; i++)
-            {
-                string row1 = "", row2 = "";
-                string cols1 = "", cols2 = "";
-                for (int j = 0; j < maxVertices; j++)
-                {
-                    if (i == 0)
-                    {
-                        if (j <= 8 && j < VerticesNumber) cols1 += $"  {j + 1}";
-                        else if (j > 8 && j < VerticesNumber) cols1 += $" {j + 1}";
-                        if (j <= 8 && j < matrix2.VerticesNumber) cols2 += $"  {j + 1}";
-                        else if (j > 8 && j < matrix2.VerticesNumber) cols2 += $" {j + 1}";
-                    }
-
-                    if (i < VerticesNumber && j < VerticesNumber)
-                        row1 += "  " + this.Graph[i][j];
-                    if (i < matrix2.VerticesNumber && j < matrix2.VerticesNumber)
-                        row2 += "  " + matrix2.Graph[i][j];
-                }
-                if (i == 0) 
-                {
-                    Console.WriteLine("   |" + cols1 + separator + "   |" + cols2);
-                    Console.WriteLine("".PadRight(4 + cols1.Length, '-') + separator + "".PadRight(4 + cols2.Length, '-'));
-                }
-                if (row1 != "")
-                    Console.Write($"{i + 1}".PadRight(2) + " |" + row1 + separator);
-                else
-                    Console.Write("".PadLeft(padLength) + separator);
-                if (row2 != "")
-                    Console.Write($"{i + 1}".PadRight(2) + " |" + row2);
-                else
-                    Console.Write("");
-                Console.WriteLine();
-            }
-            Console.WriteLine();
-        }
-
-        public void PrintAlgorithmResult(string graphType)
-        {
-            Console.WriteLine();
-            Console.WriteLine("   **** " + graphType.ToUpper() + " ****");
-            Console.WriteLine("   Vertices: " + VerticesNumber);
-            Console.WriteLine("   Edges: " + EdgesNumber);
-            for (int i = 0; i < VerticesNumber; i++)
-            {
-
-                for (int j = 0; j < VerticesNumber; j++)
-                {
-                    Console.Write(Graph[i][j] + " ");
-                }
-                //Console.Write(" |" + GetVertexDegreeRow(i));
-                Console.WriteLine();
-            }
-            Console.WriteLine(" ");
-        }
-
+      
+        // Helper functions
         public void SwapColumn(int columnA, int columnB)
         {
             int[] colB = Graph.Select(row => row[columnB]).ToArray();
@@ -241,7 +136,7 @@ namespace AlgorithmsComputabilityProject
             Graph[rowA] = temp;
         }
 
-        public void InsertOnesToMatrixAt(int x, int y, Matrix M)
+        public void InsertEdgesToMatrixAt(int x, int y, Matrix M)
         {
             for(int i = x; i < VerticesNumber && i - x < M.VerticesNumber; i++)
             {
@@ -281,7 +176,7 @@ namespace AlgorithmsComputabilityProject
         private int GetVertexDegreeRow(int id)
         {
             int sum = 0;
-            for(int x = 0; x < VerticesNumber; x++)
+            for (int x = 0; x < VerticesNumber; x++)
             {
                 sum += Graph[id][x];
             }
@@ -296,6 +191,107 @@ namespace AlgorithmsComputabilityProject
                 sum += Graph[x][id];
             }
             return sum;
+        }
+
+
+        // Printing
+        public static void PrintGraphs(Matrix G1, Matrix G2)
+        {
+            string g1 = "  G1", g2 = "  G2";
+            int padLength = (G1.VerticesNumber * 3) - g1.Length;
+            int separator = 10;
+            Console.WriteLine(g1.PadRight(G1.VerticesNumber * 3) + "".PadLeft(separator) + g2);
+
+            int maxVertices = G1.VerticesNumber > G2.VerticesNumber ? G1.VerticesNumber : G2.VerticesNumber;
+            for (int i = 0; i < maxVertices; i++)
+            {
+                for (int j = 0; j < G1.VerticesNumber; j++)
+                {
+                    if (i < G1.VerticesNumber)
+                    {
+                        if (G1[i, j] == 0) PrintColorEdge(0);
+                        else Console.Write($"  {1}");
+                    }
+                    else Console.Write("   ");
+                }
+                Console.Write("".PadLeft(separator));
+
+                for (int j = 0; j < G2.VerticesNumber; j++)
+                {
+                    if (i < G2.VerticesNumber)
+                    {
+                        if (G2[i, j] == 0) PrintColorEdge(0);
+                        else Console.Write($"  {1}");
+                    }
+                }
+                Console.WriteLine();
+            }
+            Console.WriteLine();
+        }
+
+        public static void PrintResults(Matrix G1, Matrix G2, Matrix result, string resultType)
+        {
+            string g1 = "  G1", g2 = "  G2";
+            int separator = 10;
+            Console.WriteLine();
+            Console.WriteLine(g1.PadRight(G1.VerticesNumber * 3) + "".PadLeft(separator) + g2);
+
+            int maxVertices = G1.VerticesNumber > G2.VerticesNumber ? G1.VerticesNumber : G2.VerticesNumber;
+            for (int i = 0; i < maxVertices; i++)
+            {
+                for (int j = 0; j < G1.VerticesNumber; j++)
+                {
+                    if (i < G1.VerticesNumber)
+                        PrintColorEdge(G1[i, j]);
+                    else Console.Write("   ");
+                }
+                Console.Write("".PadLeft(separator));
+
+                for (int j = 0; j < G2.VerticesNumber; j++)
+                {
+                    if (i < G2.VerticesNumber)
+                        PrintColorEdge(G2[i, j]);
+                }
+                Console.WriteLine();
+            }
+            Console.WriteLine();
+            Console.WriteLine("  " + resultType);
+
+            for (int i = 0; i < result.VerticesNumber; i++)
+            {
+                for (int j = 0; j < result.VerticesNumber; j++)
+                {
+                    PrintColorEdge(result[i, j]);
+                }
+                Console.WriteLine();
+            }
+            Console.WriteLine();
+        }
+
+        private static void PrintColorEdge(int edgeType)
+        {
+            int edgeValue = 1;
+            if (edgeType == 0)  edgeValue = 0;
+
+            switch (edgeType)
+            {
+                case 0:
+                    Console.ForegroundColor = ConsoleColor.DarkGray;
+                    break;
+                case 1: //graph 1 edges
+                    Console.ForegroundColor = ConsoleColor.Yellow;
+                    break;
+                case 2: //graph 2 edges
+                    Console.ForegroundColor = ConsoleColor.DarkYellow;
+                    break;
+                case 3: //common edges
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    break;
+                default:
+                    break;
+            }
+            Console.Write($"  {edgeValue}");
+            Console.ResetColor();
         }
     }
 }

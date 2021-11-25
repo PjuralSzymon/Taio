@@ -95,7 +95,7 @@ namespace AlgorithmsComputabilityProject
                 switch (key)
                 {
                     case '1':
-                        GeneratedMatrices[0].PrintNextTo(GeneratedMatrices[1]);
+                        Matrix.PrintGraphs(GeneratedMatrices[0], GeneratedMatrices[1]);
                         break;
                     case '2':
                         if (!CalculatedMatrices.ContainsKey("ApproximateMaximalSubGraph"))
@@ -107,8 +107,8 @@ namespace AlgorithmsComputabilityProject
                             Console.WriteLine("Calculation time: " + GetElapsedTime(stopwatch.Elapsed));
                             CalculatedMatrices.Add("ApproximateMaximalSubGraph", maxCommonSubgraph);
                         }
-                        GeneratedMatrices[0].PrintNextTo(GeneratedMatrices[1]);
-                        CalculatedMatrices["ApproximateMaximalSubGraph"].Print("Maximal Common Subgraph (Approximate)");
+                        //GeneratedMatrices[0].PrintNextTo(GeneratedMatrices[1]);
+                        //CalculatedMatrices["ApproximateMaximalSubGraph"].Print("Maximal Common Subgraph (Approximate)");
                         break;
                     case '3':
                         if (!CalculatedMatrices.ContainsKey("ApproximateMinimalSuperGraph"))
@@ -120,8 +120,8 @@ namespace AlgorithmsComputabilityProject
                             Console.WriteLine("Calculation time: " + GetElapsedTime(stopwatch.Elapsed));
                             CalculatedMatrices.Add("ApproximateMinimalSuperGraph", minCSupergraph);
                         }
-                        GeneratedMatrices[0].PrintNextTo(GeneratedMatrices[1]);
-                        CalculatedMatrices["ApproximateMinimalSuperGraph"].Print("Minimal Common Supergraph (Approximate)");
+                        //GeneratedMatrices[0].PrintNextTo(GeneratedMatrices[1]);
+                        //CalculatedMatrices["ApproximateMinimalSuperGraph"].Print("Minimal Common Supergraph (Approximate)");
                         break;
                     case '4':
                         if (IsExactAlgorithmApplicable)
@@ -130,13 +130,15 @@ namespace AlgorithmsComputabilityProject
                             {
                                 Console.WriteLine("Calculating the solution...");
                                 stopwatch.Start();
-                                Matrix exactMCSubgraph = Algorithm.FindMaximalSubGraph(GeneratedMatrices[0], GeneratedMatrices[1]);
+                                var results = ConsoleAlgorithm.FindMaximalSubGraphConsole(GeneratedMatrices[0], GeneratedMatrices[1]);
                                 stopwatch.Stop();
                                 Console.WriteLine("Calculation time: " + GetElapsedTime(stopwatch.Elapsed));
-                                CalculatedMatrices.Add("ExactMaximalSubGraph", exactMCSubgraph);
+                                CalculatedMatrices.Add("ExactMaximalSubGraph", results.ResultGraph);
+                                var printInfo = ConsoleAlgorithm.MarkCommonSubgraphEdges(results);
+                                Matrix.PrintResults(printInfo.Item1, printInfo.Item2, printInfo.Item3, "Max Common Subgraph (Exact)");
+                                printInfo = null;
                             }
-                            GeneratedMatrices[0].PrintNextTo(GeneratedMatrices[1]);
-                            CalculatedMatrices["ExactMaximalSubGraph"].Print("Maximal Common Subgraph (Exact)");
+                            //Matrix.PrintResults()
                         }
                         else Console.WriteLine("Not applicable for graphs bigger than 10 vertices");
                         break;
@@ -147,13 +149,15 @@ namespace AlgorithmsComputabilityProject
                             {
                                 Console.WriteLine("Calculating the solution...");
                                 stopwatch.Start();
-                                Matrix exactMCSupergraph = Algorithm.FindMinimalSuperGraph(GeneratedMatrices[0], GeneratedMatrices[1]);
+                                var results = ConsoleAlgorithm.FindMinimalSuperGraphConsole(GeneratedMatrices[0], GeneratedMatrices[1]);
                                 stopwatch.Stop();
                                 Console.WriteLine("Calculation time: " + GetElapsedTime(stopwatch.Elapsed));
-                                CalculatedMatrices.Add("ExactMinimalSuperGraph", exactMCSupergraph);
+                                CalculatedMatrices.Add("ExactMinimalSuperGraph", results.ResultGraph);
+                                var printInfo = ConsoleAlgorithm.MarkCommonSupergraphEdges(results);
+                                Matrix.PrintResults(printInfo.Item1, printInfo.Item2, printInfo.Item3, "Min Common Supergraph (Exact)");
+                                printInfo = null;
                             }
-                            GeneratedMatrices[0].PrintNextTo(GeneratedMatrices[1]);
-                            CalculatedMatrices["ExactMinimalSuperGraph"].Print("Minimal Common Supergraph (Exact)");
+                            
                         }
                         else Console.WriteLine("Not applicable for graphs bigger than 10 vertices");
                         break;
@@ -241,7 +245,7 @@ namespace AlgorithmsComputabilityProject
                 switch (key)
                 {
                     case '1':
-                        GeneratedMatrices[0].PrintNextTo(GeneratedMatrices[1]);
+                        Matrix.PrintGraphs(GeneratedMatrices[0], GeneratedMatrices[1]);
                         break;
                     case '2':
                         if (!CalculatedMatrices.ContainsKey("ApproximateMaximalSubGraph"))
@@ -253,7 +257,7 @@ namespace AlgorithmsComputabilityProject
                             Console.WriteLine("Calculation time: " + GetElapsedTime(stopwatch.Elapsed));
                             CalculatedMatrices.Add("ApproximateMaximalSubGraph", maxCSubgraph);
                         }
-                        CalculatedMatrices["ApproximateMaximalSubGraph"].Print("Maximal Common Subgraph (Approximate)");
+                        //CalculatedMatrices["ApproximateMaximalSubGraph"].Print("Maximal Common Subgraph (Approximate)");
                         break;
                     case '3':
                         if (!CalculatedMatrices.ContainsKey("ApproximateMinimalSuperGraph"))
@@ -265,7 +269,7 @@ namespace AlgorithmsComputabilityProject
                             Console.WriteLine("Calculation time: " + GetElapsedTime(stopwatch.Elapsed));
                             CalculatedMatrices.Add("ApproximateMinimalSuperGraph", minCSupergraph);
                         }
-                        CalculatedMatrices["ApproximateMinimalSuperGraph"].Print("Minimal Common Supergraph (Approximate)");
+                        //CalculatedMatrices["ApproximateMinimalSuperGraph"].Print("Minimal Common Supergraph (Approximate)");
                         break;
                     case '4':
                         if (IsExactAlgorithmApplicable)
@@ -279,7 +283,7 @@ namespace AlgorithmsComputabilityProject
                                 Console.WriteLine("Calculation time: " + GetElapsedTime(stopwatch.Elapsed));
                                 CalculatedMatrices.Add("ExactMaximalSubGraph", exactMCSubgraph);
                             }
-                            CalculatedMatrices["ExactMaximalSubGraph"].Print("Maximal Common Subgraph (Exact)");
+                            //CalculatedMatrices["ExactMaximalSubGraph"].Print("Maximal Common Subgraph (Exact)");
                         }
                         else Console.WriteLine("Not applicable for graphs bigger than 10 vertices");
                         break;
@@ -295,7 +299,7 @@ namespace AlgorithmsComputabilityProject
                                 Console.WriteLine("Calculation time: " + GetElapsedTime(stopwatch.Elapsed));
                                 CalculatedMatrices.Add("ExactMinimalSuperGraph", exactMCSupergraph);
                             }
-                            CalculatedMatrices["ExactMinimalSuperGraph"].Print("Minimal Common Supergraph (Exact)");
+                            //CalculatedMatrices["ExactMinimalSuperGraph"].Print("Minimal Common Supergraph (Exact)");
                         }
                         else Console.WriteLine("Not applicable for graphs bigger than 10 vertices");
                         break;

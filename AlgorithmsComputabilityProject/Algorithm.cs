@@ -38,7 +38,7 @@ namespace AlgorithmsComputabilityProject
             }
             return biggestSubGraph;
         }
-
+       
         public static Matrix FindMinimalSuperGraph(Matrix A, Matrix B)
         {
             if (A.VerticesNumber < B.VerticesNumber)
@@ -57,7 +57,7 @@ namespace AlgorithmsComputabilityProject
                     for (int y = 0; y <= M.VerticesNumber - B.VerticesNumber; y++)
                     {
                         Matrix newMatrix = new Matrix(M.Graph);
-                        newMatrix.InsertOnesToMatrixAt(x, y, B);
+                        newMatrix.InsertEdgesToMatrixAt(x, y, B);
                         if (newMatrix.EdgesNumber < minCommonEdges)
                         {
                             minCommonEdges = newMatrix.EdgesNumber;
@@ -124,7 +124,7 @@ namespace AlgorithmsComputabilityProject
                 for (int y = 0; y <= A.VerticesNumber - B.VerticesNumber; y++)
                 {
                     Matrix newMatrix = new Matrix(A.Graph);
-                    newMatrix.InsertOnesToMatrixAt(x, y, B);
+                    newMatrix.InsertEdgesToMatrixAt(x, y, B);
                     if (newMatrix.EdgesNumber < minCommonEdges)
                     {
                         minCommonEdges = newMatrix.EdgesNumber;
@@ -134,6 +134,5 @@ namespace AlgorithmsComputabilityProject
             }
             return SmallestSuperGraph;
         }
-
     }
 }
