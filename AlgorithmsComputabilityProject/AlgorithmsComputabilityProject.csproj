@@ -6,4 +6,9 @@
     <Platforms>AnyCPU;x64</Platforms>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="Tester\Examples\" />
+    <Folder Include="Tester\Output\" />
+  </ItemGroup>
+
 </Project>

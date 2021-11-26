@@ -13,7 +13,6 @@ namespace AlgorithmsComputabilityProject
         { 
             get { return CountEdges(this); }
         }
-
         public int[][] Graph { get; set; }
 
         public int this[int i, int j]

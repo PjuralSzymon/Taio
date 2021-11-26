@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AlgorithmsComputabilityProject.Tester;
+using System;
 
 namespace AlgorithmsComputabilityProject
 {
@@ -8,6 +9,7 @@ namespace AlgorithmsComputabilityProject
         {
             ConsoleMenu consoleMenu = new ConsoleMenu();
             consoleMenu.RunConsoleMenu(args);
+            //KoksTester3000.RunTests();
         }
         
     }
