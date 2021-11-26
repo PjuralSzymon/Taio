@@ -9,7 +9,7 @@ namespace AlgorithmsComputabilityProject
         {
             ConsoleMenu consoleMenu = new ConsoleMenu();
             consoleMenu.RunConsoleMenu(args);
-            //KoksTester3000.RunTests();
+            //Tester.RunTests();
         }
         
     }

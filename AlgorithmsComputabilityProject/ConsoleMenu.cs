@@ -104,7 +104,6 @@ namespace AlgorithmsComputabilityProject
                         Console.WriteLine("Calculation time: " + GetElapsedTime(stopwatch.Elapsed));
                         var printInfo1 = ConsoleAlgorithm.MarkCommonSubgraphEdges(maxSubgraph);
                         Matrix.PrintResults(printInfo1.Item1, printInfo1.Item2, printInfo1.Item3, "Max Common Subgraph (Approximate)");
-                        Console.WriteLine("  EDGES: " + printInfo1.Item3.EdgesNumber + "\n");
                         break;
                     case '3':
                         Console.WriteLine("Calculating the solution...");
@@ -114,7 +113,6 @@ namespace AlgorithmsComputabilityProject
                         Console.WriteLine("Calculation time: " + GetElapsedTime(stopwatch.Elapsed));
                         var printInfo2 = ConsoleAlgorithm.MarkCommonSupergraphEdges(minSupergraph);
                         Matrix.PrintResults(printInfo2.Item1, printInfo2.Item2, printInfo2.Item3, "Min Common Supergraph (Approximate)");
-                        Console.WriteLine("  EDGES: " + printInfo2.Item3.EdgesNumber + "\n");
                         break;
                     case '4':
                         if (IsExactAlgorithmApplicable)
@@ -126,7 +124,6 @@ namespace AlgorithmsComputabilityProject
                             Console.WriteLine("Calculation time: " + GetElapsedTime(stopwatch.Elapsed));
                             var printInfo = ConsoleAlgorithm.MarkCommonSubgraphEdges(results);
                             Matrix.PrintResults(printInfo.Item1, printInfo.Item2, printInfo.Item3, "Max Common Subgraph (Exact)");
-                            Console.WriteLine("  EDGES: " + printInfo.Item3.EdgesNumber + "\n");
                         }
                         else Console.WriteLine("Not applicable for graphs bigger than 10 vertices");
                         break;
@@ -140,7 +137,6 @@ namespace AlgorithmsComputabilityProject
                             Console.WriteLine("Calculation time: " + GetElapsedTime(stopwatch.Elapsed));
                             var printInfo = ConsoleAlgorithm.MarkCommonSupergraphEdges(results);
                             Matrix.PrintResults(printInfo.Item1, printInfo.Item2, printInfo.Item3, "Min Common Supergraph (Exact)");
-                            Console.WriteLine("  EDGES: " + printInfo.Item3.EdgesNumber + "\n");
                         }
                         else Console.WriteLine("Not applicable for graphs bigger than 10 vertices");
                         break;
@@ -161,7 +157,7 @@ namespace AlgorithmsComputabilityProject
         private static int ReadInteger()
         {
             int size = 0;
-            while (size < 2)
+            while (size < 3)
             {
                 string input = Console.ReadLine();
                 while (!Int32.TryParse(input, out size))
@@ -169,9 +165,9 @@ namespace AlgorithmsComputabilityProject
                     Console.WriteLine("Please provide a valid value for size:");
                     input = Console.ReadLine();
                 }
-                if (size < 2)
+                if (size < 3)
                 {
-                    Console.WriteLine("The graph should have at least 2 vertices. Please provide a valid value for size:");
+                    Console.WriteLine("The graph should have at least 3 vertices. Please provide a valid value for size:");
                 }
             }
             return size;
@@ -238,7 +234,6 @@ namespace AlgorithmsComputabilityProject
                         Console.WriteLine("Calculation time: " + GetElapsedTime(stopwatch.Elapsed));
                         var printInfo1 = ConsoleAlgorithm.MarkCommonSubgraphEdges(maxSubgraph);
                         Matrix.PrintResults(printInfo1.Item1, printInfo1.Item2, printInfo1.Item3, "Max Common Subgraph (Approximate)");
-                        Console.WriteLine("  EDGES: " + printInfo1.Item3.EdgesNumber + "\n");
                         break;
                     case '3':
                         Console.WriteLine("Calculating the solution...");
@@ -248,7 +243,6 @@ namespace AlgorithmsComputabilityProject
                         Console.WriteLine("Calculation time: " + GetElapsedTime(stopwatch.Elapsed));
                         var printInfo2 = ConsoleAlgorithm.MarkCommonSupergraphEdges(minSupergraph);
                         Matrix.PrintResults(printInfo2.Item1, printInfo2.Item2, printInfo2.Item3, "Min Common Supergraph (Approximate)");
-                        Console.WriteLine("  EDGES: " + printInfo2.Item3.EdgesNumber + "\n");
                         break;
                     case '4':
                         if (IsExactAlgorithmApplicable)
@@ -260,7 +254,6 @@ namespace AlgorithmsComputabilityProject
                             Console.WriteLine("Calculation time: " + GetElapsedTime(stopwatch.Elapsed));
                             var printInfo = ConsoleAlgorithm.MarkCommonSubgraphEdges(exactSubgraph);
                             Matrix.PrintResults(printInfo.Item1, printInfo.Item2, printInfo.Item3, "Max Common Subgraph (Exact)");
-                            Console.WriteLine("  EDGES: " + printInfo.Item3.EdgesNumber + "\n");
                         }
                         else Console.WriteLine("Not applicable for graphs bigger than 10 vertices");
                         break;
@@ -274,7 +267,6 @@ namespace AlgorithmsComputabilityProject
                             Console.WriteLine("Calculation time: " + GetElapsedTime(stopwatch.Elapsed));
                             var printInfo = ConsoleAlgorithm.MarkCommonSupergraphEdges(exactSupergraph);
                             Matrix.PrintResults(printInfo.Item1, printInfo.Item2, printInfo.Item3, "Min Common Supergraph (Exact)");
-                            Console.WriteLine("  EDGES: " + printInfo.Item3.EdgesNumber + "\n");
                         }
                         else Console.WriteLine("Not applicable for graphs bigger than 10 vertices");
                         break;

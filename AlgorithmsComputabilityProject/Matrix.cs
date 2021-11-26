@@ -264,7 +264,7 @@ namespace AlgorithmsComputabilityProject
                 }
                 Console.WriteLine();
             }
-            Console.WriteLine();
+            Console.WriteLine("  EDGES: " + result.EdgesNumber + "\n");
         }
 
         private static void PrintColorEdge(int edgeType)

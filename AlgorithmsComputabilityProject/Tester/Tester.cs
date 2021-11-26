@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace AlgorithmsComputabilityProject.Tester
 {
-    public class KoksTester3000
+    public class Tester
     {
         public static void RunTests()
         {

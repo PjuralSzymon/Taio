@@ -125,7 +125,7 @@ namespace AlgorithmsComputabilityProject.Tester
                 Console.WriteLine($"SPEED TESTS FOR SIZE {size}");
 
                 List<double> partialTimings = new List<double>();
-                List<(Matrix, Matrix)> matrices = KoksTester3000.GimmieSomeMatrices(size);
+                List<(Matrix, Matrix)> matrices = Tester.GimmieSomeMatrices(size);
 
                 foreach (string algorithm in timings.Keys)
                 {

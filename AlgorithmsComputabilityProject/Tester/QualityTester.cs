@@ -172,7 +172,7 @@ namespace AlgorithmsComputabilityProject.Tester
                 Console.WriteLine($"QUALITY TESTS FOR SIZE {size}, ALGORITHMS: {String.Join(", ", algs)}");
 
                 List<double> partialDifferences = new List<double>();
-                List<(Matrix, Matrix)> matrices = KoksTester3000.GimmieSomeMatrices(size);
+                List<(Matrix, Matrix)> matrices = Tester.GimmieSomeMatrices(size);
 
                 foreach ((Matrix, Matrix) example in matrices)
                 {
@@ -192,7 +192,7 @@ namespace AlgorithmsComputabilityProject.Tester
                 Console.WriteLine($"QUALITY TESTS FOR SIZE {size}, ALGORITHM: {alg}");
 
                 List<double> partialDifferences = new List<double>();
-                List<(Matrix, Matrix)> matrices = KoksTester3000.GimmieSomeMatrices(size, 100);
+                List<(Matrix, Matrix)> matrices = Tester.GimmieSomeMatrices(size, 100);
 
                 foreach ((Matrix, Matrix) example in matrices)
                 {
