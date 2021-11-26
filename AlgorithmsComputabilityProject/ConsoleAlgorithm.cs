@@ -9,9 +9,10 @@ namespace AlgorithmsComputabilityProject
     public static class ConsoleAlgorithm
     {
         /// <summary>
-        /// Returns the maximal common subgraph of two matrices A and B, the permutation of greater matrix
-        /// for which the solution was found and indexes (x,y) of the greater matrix at which the 
-        /// smaller matrix should be compared to the greater matrix.
+        /// Returns all information needed to print the results in a presentable way:
+        /// The maximal common subgraph of two matrices A and B, the permutation of greater matrix for which
+        /// the solution was found, the smaller of two matrices and indexes (x,y) of the greater matrix  
+        /// at which the smaller matrix should be compared to the greater matrix.
         /// </summary>
         public static PrintModel FindMaximalSubGraphConsole(Matrix A, Matrix B)
         {
@@ -48,7 +49,12 @@ namespace AlgorithmsComputabilityProject
             return results;
         }
 
-
+        /// <summary>
+        /// Returns all information needed to print the results in a presentable way:
+        /// The minimal common supergraph of two matrices A and B, the permutation of greater matrix for which
+        /// the solution was found, the smaller of two matrices and indexes (x,y) of the greater matrix  
+        /// at which the smaller matrix should be compared to the greater matrix.
+        /// </summary>
         public static PrintModel FindMinimalSuperGraphConsole(Matrix A, Matrix B)
         {
             if (A.VerticesNumber < B.VerticesNumber)
@@ -83,15 +89,99 @@ namespace AlgorithmsComputabilityProject
             return results;
         }
 
+        /// <summary>
+        /// Approximate version of maximal common subgraph algorithm returning all information
+        /// needed for printing
+        /// </summary>
+        public static PrintModel FindMaximalSubGraphApproximateConsole(Matrix A, Matrix B, bool sort = true)
+        {
+            if (A.VerticesNumber < B.VerticesNumber)
+            {
+                Matrix tmp = B;
+                B = A;
+                A = tmp;
+            }
+            Matrix sortedA = new Matrix(A.Graph);
+            Matrix sortedB = new Matrix(B.Graph);
+            if (sort)
+            {
+                sortedA.TransformToSortedForm();
+                sortedB.TransformToSortedForm();
+            }
+
+            PrintModel results = new PrintModel();
+            results.GreaterGraph = sortedA;
+            results.SmallerGraph = sortedB;
+            int maxCommonEdges = 0;
+            for (int x = 0; x <= sortedA.VerticesNumber - sortedB.VerticesNumber; x++)
+            {
+                for (int y = 0; y <= sortedA.VerticesNumber - sortedB.VerticesNumber; y++)
+                {
+                    Matrix subMatrix = sortedA.GetSubMatrix(x, y, sortedB.VerticesNumber);
+                    Matrix commonMatrix = Matrix.FindCommonMatrix(subMatrix, sortedB);
+                    if (commonMatrix.EdgesNumber > maxCommonEdges)
+                    {
+                        maxCommonEdges = commonMatrix.EdgesNumber;
+                        results.ResultGraph = commonMatrix;
+                        results.X = x;
+                        results.Y = y;
+                    }
+                }
+            }
+            return results;
+        }
 
         /// <summary>
-        /// Returns the matrix resulting from one of the algorithms (subgraph/supergraph) with edges marked as follows:
-        /// 1 - edge corresponding to the edge from first graph
-        /// 2 - edge corresponding to the edge from second graph
-        /// 3 - edge present in both input graphs
-        /// We assume V(G2) >= V(G1)
+        /// Approximate version of maximal common subgraph algorithm returning all information
+        /// needed for printing
         /// </summary>
-        /// <returns></returns>
+        public static PrintModel FindMinimalSuperGraphApproximateConsole(Matrix A, Matrix B, bool sort = true)
+        {
+            if (A.VerticesNumber < B.VerticesNumber)
+            {
+                Matrix tmp = B;
+                B = A;
+                A = tmp;
+            }
+            Matrix sortedA = new Matrix(A.Graph);
+            Matrix sortedB = new Matrix(B.Graph);
+            if (sort)
+            {
+                sortedA.TransformToSortedForm();
+                sortedB.TransformToSortedForm();
+            }
+
+            PrintModel results = new PrintModel();
+            results.GreaterGraph = sortedA;
+            results.SmallerGraph = sortedB;
+            int minCommonEdges = int.MaxValue;
+            for (int x = 0; x <= sortedA.VerticesNumber - sortedB.VerticesNumber; x++)
+            {
+                for (int y = 0; y <= sortedA.VerticesNumber - sortedB.VerticesNumber; y++)
+                {
+                    Matrix newMatrix = new Matrix(sortedA.Graph);
+                    newMatrix.InsertEdgesToMatrixAt(x, y, sortedB);
+                    if (newMatrix.EdgesNumber < minCommonEdges)
+                    {
+                        minCommonEdges = newMatrix.EdgesNumber;
+                        results.ResultGraph = newMatrix;
+                        results.X = x;
+                        results.Y = y;
+                    }
+                }
+            }
+            return results;
+        }
+
+
+        /// <summary>
+        /// Returns 3 matrices: the matrix resulting from subgraph algorithms, smaller graph and the permutation of 
+        /// the larger graph for which solution was found. All returned graphs have edges marked as follows:
+        /// 1 - edges from first (smaller) graph
+        /// 2 - edges from second (larger) graph
+        /// 3 - edge present in both input graphs
+        /// We assume V(G2) >= V(G1) == V(GResult)
+        /// </summary>
         public static Tuple<Matrix, Matrix, Matrix> MarkCommonSubgraphEdges(PrintModel model)
         {
             Matrix G1copy = new Matrix(model.SmallerGraph.Graph);
@@ -137,11 +227,12 @@ namespace AlgorithmsComputabilityProject
         }
 
         /// <summary>
-        /// Returns the matrix resulting from one of the algorithms (subgraph/supergraph) with edges marked as follows:
-        /// 1 - edge corresponding to the edge from first graph
-        /// 2 - edge corresponding to the edge from second graph
+        /// Returns 3 matrices: the matrix resulting from supergraph algorithms, smaller graph and the permutation of 
+        /// the larger graph for which solution was found. All returned graphs have edges marked as follows:
+        /// 1 - edges from first (smaller) graph
+        /// 2 - edges from second (larger) graph
         /// 3 - edge present in both input graphs
-        /// We assume V(G2) == V(GResult) > V(G1)
+        /// We assume V(G2) == V(GResult) >= V(G1)
         /// </summary>
         /// <returns></returns>
         public static Tuple<Matrix, Matrix, Matrix> MarkCommonSupergraphEdges(PrintModel model)

@@ -79,19 +79,22 @@ namespace AlgorithmsComputabilityProject
                 B = A;
                 A = tmp;
             }
+            Matrix sortedA = new Matrix(A.Graph);
+            Matrix sortedB = new Matrix(B.Graph);
             if (sort)
             {
-                A.TransformToSortedForm();
-                B.TransformToSortedForm();
+                sortedA.TransformToSortedForm();
+                sortedB.TransformToSortedForm();
             }
+
             Matrix biggestSubGraph = null;
             int maxCommonEdges = 0;
-            for (int x = 0; x <= A.VerticesNumber - B.VerticesNumber; x++)
+            for (int x = 0; x <= sortedA.VerticesNumber - sortedB.VerticesNumber; x++)
             {
-                for (int y = 0; y <= A.VerticesNumber - B.VerticesNumber; y++)
+                for (int y = 0; y <= sortedA.VerticesNumber - sortedB.VerticesNumber; y++)
                 {
-                    Matrix subMatrix = A.GetSubMatrix(x, y, B.VerticesNumber);
-                    Matrix commonMatrix = Matrix.FindCommonMatrix(subMatrix, B);
+                    Matrix subMatrix = sortedA.GetSubMatrix(x, y, sortedB.VerticesNumber);
+                    Matrix commonMatrix = Matrix.FindCommonMatrix(subMatrix, sortedB);
                     if (commonMatrix.EdgesNumber > maxCommonEdges)
                     {
                         maxCommonEdges = commonMatrix.EdgesNumber;
@@ -111,20 +114,21 @@ namespace AlgorithmsComputabilityProject
                 B = A;
                 A = tmp;
             }
-
+            Matrix sortedA = new Matrix(A.Graph);
+            Matrix sortedB = new Matrix(B.Graph);
             if (sort)
             {
-                A.TransformToSortedForm();
-                B.TransformToSortedForm();
+                sortedA.TransformToSortedForm();
+                sortedB.TransformToSortedForm();
             }
             Matrix SmallestSuperGraph = null;
             int minCommonEdges = int.MaxValue;
-            for (int x = 0; x <= A.VerticesNumber - B.VerticesNumber; x++)
+            for (int x = 0; x <= sortedA.VerticesNumber - sortedB.VerticesNumber; x++)
             {
-                for (int y = 0; y <= A.VerticesNumber - B.VerticesNumber; y++)
+                for (int y = 0; y <= sortedA.VerticesNumber - sortedB.VerticesNumber; y++)
                 {
-                    Matrix newMatrix = new Matrix(A.Graph);
-                    newMatrix.InsertEdgesToMatrixAt(x, y, B);
+                    Matrix newMatrix = new Matrix(sortedA.Graph);
+                    newMatrix.InsertEdgesToMatrixAt(x, y, sortedB);
                     if (newMatrix.EdgesNumber < minCommonEdges)
                     {
                         minCommonEdges = newMatrix.EdgesNumber;
