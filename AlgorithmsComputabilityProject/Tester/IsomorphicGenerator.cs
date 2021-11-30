@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace AlgorithmsComputabilityProject
+namespace AlgorithmsComputabilityProject.Tester
 {
-    class IsomorphicGenerator : IEnumerable
+    public class IsomorphicGenerator : IEnumerable
     {
         private readonly List<int[]> Permutations;
         private readonly Matrix M;
