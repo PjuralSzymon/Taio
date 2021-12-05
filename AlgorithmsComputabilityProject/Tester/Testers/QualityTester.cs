@@ -143,7 +143,7 @@ namespace AlgorithmsComputabilityProject.Tester
         // "Algorithm_Name": [ d for minSize, d for minSize + 1, ..., d for maxSize]
         // ...
         // Where d is mean difference in amount of edges [ d = ||E(approximate)| - |E(approximate_unsorted)|| ]
-        public static Dictionary<string, List<double>> ApproximateSortedVersusUnsorted(int minSize, int maxSize)
+        public static Dictionary<string, List<double>> ApproximateSortedVersusUnsorted(int minSize, int maxSize, int numberOfMatrices = 10)
         {
             Console.WriteLine("QUALITY TESTS FOR APPROXIMATE SORTED vs UNSORTED START");
 
@@ -154,10 +154,10 @@ namespace AlgorithmsComputabilityProject.Tester
             };
 
             RunTestsAndSaveDifferencesForApprox(differences["Maximum Common Subgraph"],
-                Storage.MAXIMUM_COMMON_SUBGRAPH_APPROXIMATE, minSize, maxSize);
+                Storage.MAXIMUM_COMMON_SUBGRAPH_APPROXIMATE, minSize, maxSize, numberOfMatrices);
 
             RunTestsAndSaveDifferencesForApprox(differences["Minimum Common Supergraph"],
-                Storage.MINIMAL_COMMON_SUPERGRAPH_APPROXIMATE, minSize, maxSize);
+                Storage.MINIMAL_COMMON_SUPERGRAPH_APPROXIMATE, minSize, maxSize, numberOfMatrices);
 
             string json = JsonSerializer.Serialize(differences);
             File.WriteAllText(Storage.GetPathToOutput("ApproxVsApproxResults.txt"), json, Encoding.UTF8);

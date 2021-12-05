@@ -22,10 +22,10 @@ namespace AlgorithmsComputabilityProject.Tester
             //QualityTester.ApproximateVersusExact(examplesForExactAlgorithms);
             //QualityTester.ApproximateSortedVersusUnsorted(examplesForApproxAlgorithms);
 
-            //SpeedTester.RunSpeedTestsForExactAlgorithms(4, 9);
-            //SpeedTester.RunSpeedTestsForApproximateAlgorithms(10, 30);
-            //QualityTester.ApproximateVersusExact(4, 9);
-            //QualityTester.ApproximateSortedVersusUnsorted(60, 70);
+            //SpeedTester.RunSpeedTestsForExactAlgorithms(4, 10, 5);
+            SpeedTester.RunSpeedTestsForApproximateAlgorithms(10, 95, 50);
+            //QualityTester.ApproximateVersusExact(4, 10, 5);
+            QualityTester.ApproximateSortedVersusUnsorted(10, 95, 50);
             //Console.ReadKey();
 
             // ----- Generating and saving examples -----
