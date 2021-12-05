@@ -161,7 +161,7 @@ namespace AlgorithmsComputabilityProject
         {
             for (int i = 0; i < VerticesNumber; i++)
             {
-                for(int j = 0; j < VerticesNumber; j++)
+                for (int j = 0; j < VerticesNumber; j++)
                 {
                     if (GetVertexDegreeRow(i) + GetVertexDegreeCol(i) > GetVertexDegreeRow(j) + GetVertexDegreeCol(j))
                     {
@@ -170,6 +170,53 @@ namespace AlgorithmsComputabilityProject
                     }
                 }
             }
+        }
+
+        public static Matrix GetIsomorphism(Matrix A)
+        {
+            Matrix isomorphism = new Matrix(A.Graph);
+            int numberOfVerticesToSwap = A.VerticesNumber / 3;
+            List<int> usedIndices = new List<int>();
+            while (numberOfVerticesToSwap > 0)
+            {
+                int firstIndex = GetUniqueRandomNumber(usedIndices, A.VerticesNumber);
+                usedIndices.Add(firstIndex);
+                int secondIndex = GetUniqueRandomNumber(usedIndices, A.VerticesNumber);
+                usedIndices.Add(secondIndex);
+                isomorphism.SwapColumn(firstIndex, secondIndex);
+                isomorphism.SwapRow(firstIndex, secondIndex);
+                numberOfVerticesToSwap--;
+            }
+            return isomorphism;
+        }
+
+        public static Matrix GetIsomorphicSubgraph(Matrix A, int subgraphSize)
+        {
+            if (subgraphSize > A.VerticesNumber)
+            {
+                throw new InvalidOperationException("Subgraph can't be bigger than the supergraph.");
+            }
+
+            int[][] newGraph = new int[subgraphSize][];
+            for (int i = 0; i < subgraphSize; i++)
+            {
+                newGraph[i] = new int[subgraphSize];
+                Array.Copy(A.Graph[i], newGraph[i], subgraphSize);
+            }
+
+            Matrix subGraph =  new Matrix(newGraph);
+            return Matrix.GetIsomorphism(subGraph);
+        }
+
+        private static int GetUniqueRandomNumber(List<int> usedNumbers, int maximum)
+        {
+            Random random = new Random();
+            int num = random.Next(0, maximum);
+            while (usedNumbers.Contains(num))
+            {
+                num = random.Next(0, maximum);
+            }
+            return num;
         }
 
         private int GetVertexDegreeRow(int id)

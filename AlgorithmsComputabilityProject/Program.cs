@@ -9,7 +9,7 @@ namespace AlgorithmsComputabilityProject
         {
             ConsoleMenu consoleMenu = new ConsoleMenu();
             consoleMenu.RunConsoleMenu(args);
-            //Tester.RunTests();
+            //MainTester.RunTests();
         }
         
     }
