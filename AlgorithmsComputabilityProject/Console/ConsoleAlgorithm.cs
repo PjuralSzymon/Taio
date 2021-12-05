@@ -22,7 +22,6 @@ namespace AlgorithmsComputabilityProject
                 B = A;
                 A = tmp;
             }
-
             PrintModel results = new PrintModel();
             results.SmallerGraph = B;
             int maxCommonEdges = 0;
@@ -184,46 +183,46 @@ namespace AlgorithmsComputabilityProject
         /// </summary>
         public static Tuple<Matrix, Matrix, Matrix> MarkCommonSubgraphEdges(PrintModel model)
         {
-            Matrix G1copy = new Matrix(model.SmallerGraph.Graph);
-            Matrix G2copy = new Matrix(model.GreaterGraph.Graph);
+            Matrix smallGraph = new Matrix(model.SmallerGraph.Graph);
+            Matrix largeGraph = new Matrix(model.GreaterGraph.Graph);
             Matrix ResultCopy = new Matrix(model.ResultGraph.Graph);
 
-            for (int i = 0; i < G2copy.VerticesNumber; i++)
+            for (int i = 0; i < largeGraph.VerticesNumber; i++)
             {
-                for (int j = 0; j < G2copy.VerticesNumber; j++)
+                for (int j = 0; j < largeGraph.VerticesNumber; j++)
                 {
-                    if (i >= model.X && i < model.X + G1copy.VerticesNumber && 
-                        j >= model.Y && j < model.Y + G1copy.VerticesNumber)
+                    if (i >= model.X && i < model.X + smallGraph.VerticesNumber && 
+                        j >= model.Y && j < model.Y + smallGraph.VerticesNumber)
                     {
-                        if (G1copy[i - model.X, j - model.Y] == 1 && G2copy[i, j] == 1 &&
+                        if (smallGraph[i - model.X, j - model.Y] == 1 && largeGraph[i, j] == 1 &&
                             ResultCopy[i - model.X, j - model.Y] == 1)
                         {
-                            G1copy[i - model.X, j - model.Y] = 3;
-                            G2copy[i, j] = 3;
+                            smallGraph[i - model.X, j - model.Y] = 3;
+                            largeGraph[i, j] = 3;
                             ResultCopy[i - model.X, j - model.Y] = 3;
                         }
-                        else if (G1copy[i - model.X, j - model.Y] == 0 && G2copy[i, j] == 1 &&
+                        else if (smallGraph[i - model.X, j - model.Y] == 0 && largeGraph[i, j] == 1 &&
                             ResultCopy[i - model.X, j - model.Y] == 1)
                         {
-                            G2copy[i, j] = 2;
+                            largeGraph[i, j] = 2;
                             ResultCopy[i - model.X, j - model.Y] = 2;
                         }
-                        else if (G1copy[i - model.X, j - model.Y] == 0 && G2copy[i, j] == 1 &&
+                        else if (smallGraph[i - model.X, j - model.Y] == 0 && largeGraph[i, j] == 1 &&
                             ResultCopy[i - model.X, j - model.Y] == 0)
                         {
-                            G2copy[i, j] = 2;
+                            largeGraph[i, j] = 2;
                         }
                         else
                             continue;
                     }
                     else
                     {
-                        if (G2copy[i, j] == 1)
-                            G2copy[i, j] = 2;
+                        if (largeGraph[i, j] == 1)
+                            largeGraph[i, j] = 2;
                     }
                 }
             }
-            return new Tuple<Matrix, Matrix, Matrix>(G1copy, G2copy, ResultCopy);
+            return new Tuple<Matrix, Matrix, Matrix>(largeGraph, smallGraph, ResultCopy);
         }
 
         /// <summary>
@@ -237,47 +236,47 @@ namespace AlgorithmsComputabilityProject
         /// <returns></returns>
         public static Tuple<Matrix, Matrix, Matrix> MarkCommonSupergraphEdges(PrintModel model)
         {
-            Matrix G1 = new Matrix(model.SmallerGraph.Graph);
-            Matrix G2 = new Matrix(model.GreaterGraph.Graph);
+            Matrix smallGraph = new Matrix(model.SmallerGraph.Graph);
+            Matrix largeGraph = new Matrix(model.GreaterGraph.Graph);
             Matrix Result = new Matrix(model.ResultGraph.Graph);
 
-            for (int i = 0; i < G2.VerticesNumber; i++)
+            for (int i = 0; i < largeGraph.VerticesNumber; i++)
             {
-                for (int j = 0; j < G2.VerticesNumber; j++)
+                for (int j = 0; j < largeGraph.VerticesNumber; j++)
                 {
-                    if (i >= model.X && i < model.X + G1.VerticesNumber &&
-                        j >= model.Y && j < model.Y + G1.VerticesNumber)
+                    if (i >= model.X && i < model.X + smallGraph.VerticesNumber &&
+                        j >= model.Y && j < model.Y + smallGraph.VerticesNumber)
                     {
-                        if (G1[i - model.X, j - model.Y] == 1 && G2[i, j] == 1 && Result[i, j] == 1)
+                        if (smallGraph[i - model.X, j - model.Y] == 1 && largeGraph[i, j] == 1 && Result[i, j] == 1)
                         {
-                            G1[i - model.X, j - model.Y] = 3;
-                            G2[i, j] = 3;
+                            smallGraph[i - model.X, j - model.Y] = 3;
+                            largeGraph[i, j] = 3;
                             Result[i, j] = 3;
                         }
-                        else if (G1[i - model.X, j - model.Y] == 0 && G2[i, j] == 1 &&  Result[i, j] == 1)
+                        else if (smallGraph[i - model.X, j - model.Y] == 0 && largeGraph[i, j] == 1 &&  Result[i, j] == 1)
                         {
-                            G2[i, j] = 2;
+                            largeGraph[i, j] = 2;
                             Result[i, j] = 2;
                         }
-                        else if (G1[i - model.X, j - model.Y] == 0 && G2[i, j] == 1 && Result[i, j] == 0)
+                        else if (smallGraph[i - model.X, j - model.Y] == 0 && largeGraph[i, j] == 1 && Result[i, j] == 0)
                         {
-                            G2[i, j] = 2;
+                            largeGraph[i, j] = 2;
                         }
                         else
                             continue;
                     }
                     else
                     {
-                        if (G2[i, j] == 1)
+                        if (largeGraph[i, j] == 1)
                         {
-                            G2[i, j] = 2;
+                            largeGraph[i, j] = 2;
                             if (Result[i, j] == 1)
                                 Result[i, j] = 2;
                         }
                     }
                 }
             }
-            return new Tuple<Matrix, Matrix, Matrix>(G1, G2, Result);
+            return new Tuple<Matrix, Matrix, Matrix>(largeGraph, smallGraph, Result);
         }
     }
 }

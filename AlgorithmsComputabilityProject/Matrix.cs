@@ -243,9 +243,16 @@ namespace AlgorithmsComputabilityProject
         // Printing
         public static void PrintGraphs(Matrix G1, Matrix G2)
         {
+            if (G1.VerticesNumber < G2.VerticesNumber)
+            {
+                Matrix tmp = G2;
+                G2 = G1;
+                G1 = tmp;
+            }
             string g1 = "  G1", g2 = "  G2";
-            int padLength = (G1.VerticesNumber * 3) - g1.Length;
-            int separator = 10;
+            string edge1 = $"  Edges: {G1.EdgesNumber}";
+            string edge2 = $"  Edges: {G2.EdgesNumber}";
+            int separator = 8;
             Console.WriteLine(g1.PadRight(G1.VerticesNumber * 3) + "".PadLeft(separator) + g2);
 
             int maxVertices = G1.VerticesNumber > G2.VerticesNumber ? G1.VerticesNumber : G2.VerticesNumber;
@@ -256,7 +263,7 @@ namespace AlgorithmsComputabilityProject
                     if (i < G1.VerticesNumber)
                     {
                         if (G1[i, j] == 0) PrintColorEdge(0);
-                        else Console.Write($"  {1}");
+                        else PrintColorEdge(2);
                     }
                     else Console.Write("   ");
                 }
@@ -267,7 +274,7 @@ namespace AlgorithmsComputabilityProject
                     if (i < G2.VerticesNumber)
                     {
                         if (G2[i, j] == 0) PrintColorEdge(0);
-                        else Console.Write($"  {1}");
+                        else PrintColorEdge(1);
                     }
                 }
                 Console.WriteLine();
@@ -278,7 +285,7 @@ namespace AlgorithmsComputabilityProject
         public static void PrintResults(Matrix G1, Matrix G2, Matrix result, string resultType)
         {
             string g1 = "  G1", g2 = "  G2";
-            int separator = 10;
+            int separator = 8;
             Console.WriteLine();
             Console.WriteLine(g1.PadRight(G1.VerticesNumber * 3) + "".PadLeft(separator) + g2);
 

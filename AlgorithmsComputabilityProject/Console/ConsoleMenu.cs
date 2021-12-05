@@ -79,7 +79,7 @@ namespace AlgorithmsComputabilityProject
                 }
 
                 Console.WriteLine("Please press a key to choose an option:");
-                Console.WriteLine("1 - Print graphs");
+                Console.WriteLine("1 - Print original graphs");
                 Console.WriteLine("2 - Show the Approximate Maximal Common Subgraph");
                 Console.WriteLine("3 - Show the Approximate Minimal Common Supergraph");
                 if (ChosenSizes[0] < 11 && ChosenSizes[1] < 11)
@@ -209,7 +209,7 @@ namespace AlgorithmsComputabilityProject
             while (flag)
             {
                 Console.WriteLine("Graphs deserialized! Please press a key to choose an option:");
-                Console.WriteLine("1 - Print the first graph");
+                Console.WriteLine("1 - Print original graphs");
                 Console.WriteLine("2 - Show the Approximate Maximal Common Subgraph");
                 Console.WriteLine("3 - Show the Approximate Minimal Common Supergraph");
                 if (ChosenSizes[0] < 11 && ChosenSizes[1] < 11)
