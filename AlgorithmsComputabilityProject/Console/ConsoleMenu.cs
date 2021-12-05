@@ -176,13 +176,13 @@ namespace AlgorithmsComputabilityProject
         private void DisplayOptionsForSpecifiedGraphs()
         {
             Console.WriteLine("Note: If size of a graph is bigger than 10, only approximate algorithms will be available.");
-            Console.WriteLine("Please write global path to the file with matrices:");
+            Console.WriteLine("Please write path to the file with matrices:");
 
             string input = Console.ReadLine();
 
             while (!File.Exists(input))
             {
-                Console.WriteLine("File wasn't found! Please supply correct global path or press 1 to go back.");
+                Console.WriteLine("File wasn't found! Please supply correct path or press 1 to go back.");
                 input = Console.ReadLine();
                 if (input == "1")
                 {

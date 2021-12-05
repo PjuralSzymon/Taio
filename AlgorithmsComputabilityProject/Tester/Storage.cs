@@ -6,7 +6,8 @@ namespace AlgorithmsComputabilityProject.Tester
 {
     public static class Storage
     {
-        public static readonly int[] MATRIX_SIZES = new int[]
+        // Sizes for tests.
+        public static readonly int[] ALL_MATRIX_SIZES = new int[]
         {
             4, 5, 6, 7, 8, 9, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95
         };
@@ -18,16 +19,53 @@ namespace AlgorithmsComputabilityProject.Tester
         {
             10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95
         };
+        // Sizes to save on disk.
+        public static readonly int[] ALL_ISO_MATRIX_SIZES = new int[]
+        {
+            6, 8, 15, 20
+        };
+        public static readonly int[] EXACT_ISO_MATRIX_SIZES = new int[]
+        {
+            6, 8
+        };
+        public static readonly int[] APPROX_ISO_MATRIX_SIZES = new int[]
+        {
+            15, 20
+        };
+        public static readonly (int, int)[] ALL_ISO_SUB_MATRIX_SIZES = new (int, int)[]
+        {
+            (6, 4), (8, 7), (9, 5), (15, 11), (20, 15)
+        };
+        public static readonly (int, int)[] EXACT_ISO_SUB_MATRIX_SIZES = new (int, int)[]
+        {
+            (6, 4), (8, 7), (9, 5)
+        };
+        public static readonly (int, int)[] APPROX_ISO_SUB_MATRIX_SIZES = new (int, int)[]
+        {
+            (15, 11), (20, 15)
+        };
+        public static readonly (int, int)[] ALL_RANDOM_SUB_MATRIX_SIZES = new (int, int)[]
+        {
+            (4, 3), (5, 5), (6, 4), (7, 7), (8, 5), (9, 7), (10, 6), (15, 12), (20, 18), (25, 21), (30, 24), (35, 29), (40, 31),
+            (50, 40), (55, 51), (60, 55), (65, 46), (70, 56), (75, 61), (80, 80), (85, 69), (90, 74), (95, 79)
+        };
+        public static readonly (int, int)[] EXACT_RANDOM_SUB_MATRIX_SIZES = new (int, int)[]
+        {
+            (4, 3), (5, 5), (6, 4), (7, 7), (8, 5), (9, 7), (10, 6)
+        };
+        public static readonly (int, int)[] APPROX_RANDOM_SUB_MATRIX_SIZES = new (int, int)[]
+        {
+            (15, 12), (20, 18), (25, 21), (30, 24), (35, 29), (40, 31), (50, 40), (55, 51), (60, 55), (65, 46), (70, 56), (75, 61),
+            (80, 80), (85, 69), (90, 74), (95, 79)
+        };
+        // -------------------------------
         public const string MAXIMUM_COMMON_SUBGRAPH_EXACT = "Maximum Common Subgraph Exact";
         public const string MAXIMUM_COMMON_SUBGRAPH_APPROXIMATE = "Maximum Common Subgraph Approximate";
         public const string MINIMAL_COMMON_SUPERGRAPH_EXACT = "Minimal Common Supergraph Exact";
         public const string MINIMAL_COMMON_SUPERGRAPH_APPROXIMATE = "Minimal Common Supergraph Approximate";
 
-        public const string EXAMPLES_DEVELOPMENT_DIRECTORY = "../../../Tester/Examples/";
-        public const string EXAMPLES_PRODUCTION_DIRECTORY = "Examples/";
-
-        public const string OUTPUT_DEVELOPMENT_DIRECTORY = "../../../Tester/Output/";
-        public const string OUTPUT_PRODUCTION_DIRECTORY = "Output/";
+        public const string EXAMPLES_DIRECTORY = "../../../Tester/Examples/";
+        public const string OUTPUT_DIRECTORY = "../../../Tester/Output/";
 
         public static readonly Dictionary<string, Func<Matrix, Matrix, bool, Matrix>> AllFunctions =
             new Dictionary<string, Func<Matrix, Matrix, bool, Matrix>>
@@ -54,26 +92,12 @@ namespace AlgorithmsComputabilityProject.Tester
 
         public static string GetPathToOutput(string fileName)
         {
-            return System.AppDomain.CurrentDomain.BaseDirectory + $"{OUTPUT_DEVELOPMENT_DIRECTORY}{fileName}";
-            //return Directory.GetCurrentDirectory() + $"/../../../Tester/Output/{fileName}";
+            return System.AppDomain.CurrentDomain.BaseDirectory + $"{OUTPUT_DIRECTORY}{fileName}";
         }
 
         public static string GetPathToExamples(string fileName)
         {
-            return System.AppDomain.CurrentDomain.BaseDirectory + $"{EXAMPLES_DEVELOPMENT_DIRECTORY}{fileName}";
-            //return Directory.GetCurrentDirectory() + $"/../../../Tester/Examples/{fileName}";
-        }
-
-        public static string GetPathToOutputProd(string fileName)
-        {
-            return System.AppDomain.CurrentDomain.BaseDirectory + $"{OUTPUT_PRODUCTION_DIRECTORY}{fileName}";
-            //return Directory.GetCurrentDirectory() + $"/../../../Tester/Output/{fileName}";
-        }
-
-        public static string GetPathToExamplesProd(string fileName)
-        {
-            return System.AppDomain.CurrentDomain.BaseDirectory + $"{EXAMPLES_PRODUCTION_DIRECTORY}{fileName}";
-            //return Directory.GetCurrentDirectory() + $"/../../../Tester/Examples/{fileName}";
+            return System.AppDomain.CurrentDomain.BaseDirectory + $"{EXAMPLES_DIRECTORY}{fileName}";
         }
     }
 }
