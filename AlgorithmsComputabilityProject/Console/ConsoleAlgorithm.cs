@@ -25,20 +25,20 @@ namespace AlgorithmsComputabilityProject
             PrintModel results = new PrintModel();
             results.SmallerGraph = B;
             int maxCommonEdges = 0;
-            foreach (Matrix M in new IsomorphicGenerator(A))
+            foreach (IsomorphicGeneratorEnumeratorData data in new IsomorphicGenerator(A))
             {
                 //M.Print();
-                for (int x = 0; x <= M.VerticesNumber - B.VerticesNumber; x++)
+                for (int x = 0; x <= data.PermutedMatrix.VerticesNumber - B.VerticesNumber; x++)
                 {
-                    for (int y = 0; y <= M.VerticesNumber - B.VerticesNumber; y++)
+                    for (int y = 0; y <= data.PermutedMatrix.VerticesNumber - B.VerticesNumber; y++)
                     {
-                        Matrix subMatrix = M.GetSubMatrix(x, y, B.VerticesNumber);
+                        Matrix subMatrix = data.PermutedMatrix.GetSubMatrix(x, y, B.VerticesNumber);
                         Matrix commonMatrix = Matrix.FindCommonMatrix(subMatrix, B);
                         if (commonMatrix.EdgesNumber > maxCommonEdges)
                         {
                             maxCommonEdges = commonMatrix.EdgesNumber;
                             results.ResultGraph = commonMatrix;
-                            results.GreaterGraph = M;
+                            results.GreaterGraph = data.PermutedMatrix;
                             results.X = x;
                             results.Y = y;
                         }
@@ -66,19 +66,19 @@ namespace AlgorithmsComputabilityProject
             PrintModel results = new PrintModel();
             results.SmallerGraph = B;
             int minCommonEdges = int.MaxValue;
-            foreach (Matrix M in new IsomorphicGenerator(A))
+            foreach (IsomorphicGeneratorEnumeratorData data in new IsomorphicGenerator(A))
             {
-                for (int x = 0; x <= M.VerticesNumber - B.VerticesNumber; x++)
+                for (int x = 0; x <= data.PermutedMatrix.VerticesNumber - B.VerticesNumber; x++)
                 {
-                    for (int y = 0; y <= M.VerticesNumber - B.VerticesNumber; y++)
+                    for (int y = 0; y <= data.PermutedMatrix.VerticesNumber - B.VerticesNumber; y++)
                     {
-                        Matrix newMatrix = new Matrix(M.Graph);
+                        Matrix newMatrix = new Matrix(data.PermutedMatrix.Graph);
                         newMatrix.InsertEdgesToMatrixAt(x, y, B);
                         if (newMatrix.EdgesNumber < minCommonEdges)
                         {
                             minCommonEdges = newMatrix.EdgesNumber;
                             results.ResultGraph = newMatrix;
-                            results.GreaterGraph = M;
+                            results.GreaterGraph = data.PermutedMatrix;
                             results.X = x;
                             results.Y = y;
                         }
