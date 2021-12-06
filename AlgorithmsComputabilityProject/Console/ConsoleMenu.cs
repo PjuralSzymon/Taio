@@ -65,13 +65,13 @@ namespace AlgorithmsComputabilityProject
             {
                 if (ChosenSizes.Count < 2)
                 {
-                    Console.WriteLine("Note: If size of a graph is bigger than 10, only approximate algorithms will be available.");
-                    Console.WriteLine("Please enter the size of the first graph and confirm by pressing enter.");
+                    Console.WriteLine("Note: If any of two graphs has more than 10 vertices, only approximate algorithms will be available.");
+                    Console.WriteLine("Please enter the number of vertices for the first graph and confirm by pressing enter.");
 
                     ChosenSizes.Add(ReadInteger());
-                    Console.WriteLine("Please enter the size of the second graph and confirm by pressing enter.");
+                    Console.WriteLine("Please enter the number of vertices for the second graph and confirm by pressing enter.");
                     ChosenSizes.Add(ReadInteger());
-                    Console.WriteLine("Generating graphs...");
+                    Console.WriteLine("Generating graphs...\n");
 
                     GeneratedMatrices.Add(GraphGenerator.GetRandomMatrix(ChosenSizes[0]));
                     GeneratedMatrices.Add(GraphGenerator.GetRandomMatrix(ChosenSizes[1]));
@@ -102,8 +102,7 @@ namespace AlgorithmsComputabilityProject
                         var maxSubgraph = ConsoleAlgorithm.FindMaximalSubGraphApproximateConsole(GeneratedMatrices[0], GeneratedMatrices[1]);
                         stopwatch.Stop();
                         Console.WriteLine("Calculation time: " + GetElapsedTime(stopwatch.Elapsed));
-                        var printInfo1 = ConsoleAlgorithm.MarkCommonSubgraphEdges(maxSubgraph);
-                        Matrix.PrintResults(printInfo1.Item1, printInfo1.Item2, printInfo1.Item3, "Max Common Subgraph (Approximate)");
+                        Matrix.PrintResults(ConsoleAlgorithm.MarkCommonSubgraphEdges(maxSubgraph), "Max Common Subgraph (Approximate)");
                         break;
                     case '3':
                         Console.WriteLine("Calculating the solution...");
@@ -111,8 +110,7 @@ namespace AlgorithmsComputabilityProject
                         var minSupergraph = ConsoleAlgorithm.FindMinimalSuperGraphApproximateConsole(GeneratedMatrices[0], GeneratedMatrices[1]);
                         stopwatch.Stop();
                         Console.WriteLine("Calculation time: " + GetElapsedTime(stopwatch.Elapsed));
-                        var printInfo2 = ConsoleAlgorithm.MarkCommonSupergraphEdges(minSupergraph);
-                        Matrix.PrintResults(printInfo2.Item1, printInfo2.Item2, printInfo2.Item3, "Min Common Supergraph (Approximate)");
+                        Matrix.PrintResults(ConsoleAlgorithm.MarkCommonSupergraphEdges(minSupergraph), "Min Common Supergraph (Approximate)");
                         break;
                     case '4':
                         if (IsExactAlgorithmApplicable)
@@ -122,8 +120,7 @@ namespace AlgorithmsComputabilityProject
                             var results = ConsoleAlgorithm.FindMaximalSubGraphConsole(GeneratedMatrices[0], GeneratedMatrices[1]);
                             stopwatch.Stop();
                             Console.WriteLine("Calculation time: " + GetElapsedTime(stopwatch.Elapsed));
-                            var printInfo = ConsoleAlgorithm.MarkCommonSubgraphEdges(results);
-                            Matrix.PrintResults(printInfo.Item1, printInfo.Item2, printInfo.Item3, "Max Common Subgraph (Exact)");
+                            Matrix.PrintResults(ConsoleAlgorithm.MarkCommonSubgraphEdges(results), "Max Common Subgraph (Exact)");
                         }
                         else Console.WriteLine("Not applicable for graphs bigger than 10 vertices");
                         break;
@@ -135,8 +132,7 @@ namespace AlgorithmsComputabilityProject
                             var results = ConsoleAlgorithm.FindMinimalSuperGraphConsole(GeneratedMatrices[0], GeneratedMatrices[1]);
                             stopwatch.Stop();
                             Console.WriteLine("Calculation time: " + GetElapsedTime(stopwatch.Elapsed));
-                            var printInfo = ConsoleAlgorithm.MarkCommonSupergraphEdges(results);
-                            Matrix.PrintResults(printInfo.Item1, printInfo.Item2, printInfo.Item3, "Min Common Supergraph (Exact)");
+                            Matrix.PrintResults(ConsoleAlgorithm.MarkCommonSupergraphEdges(results), "Min Common Supergraph (Exact)");
                         }
                         else Console.WriteLine("Not applicable for graphs bigger than 10 vertices");
                         break;
@@ -175,7 +171,7 @@ namespace AlgorithmsComputabilityProject
 
         private void DisplayOptionsForSpecifiedGraphs()
         {
-            Console.WriteLine("Note: If size of a graph is bigger than 10, only approximate algorithms will be available.");
+            Console.WriteLine("Note: If any of two graphs has more than 10 vertices, only approximate algorithms will be available.");
             Console.WriteLine("Please write path to the file with matrices:");
 
             string input = Console.ReadLine();
@@ -232,8 +228,7 @@ namespace AlgorithmsComputabilityProject
                         var maxSubgraph = ConsoleAlgorithm.FindMaximalSubGraphApproximateConsole(GeneratedMatrices[0], GeneratedMatrices[1]);
                         stopwatch.Stop();
                         Console.WriteLine("Calculation time: " + GetElapsedTime(stopwatch.Elapsed));
-                        var printInfo1 = ConsoleAlgorithm.MarkCommonSubgraphEdges(maxSubgraph);
-                        Matrix.PrintResults(printInfo1.Item1, printInfo1.Item2, printInfo1.Item3, "Max Common Subgraph (Approximate)");
+                        Matrix.PrintResults(ConsoleAlgorithm.MarkCommonSubgraphEdges(maxSubgraph), "Max Common Subgraph (Approximate)");
                         break;
                     case '3':
                         Console.WriteLine("Calculating the solution...");
@@ -241,8 +236,7 @@ namespace AlgorithmsComputabilityProject
                         var minSupergraph = ConsoleAlgorithm.FindMinimalSuperGraphApproximateConsole(GeneratedMatrices[0], GeneratedMatrices[1]);
                         stopwatch.Stop();
                         Console.WriteLine("Calculation time: " + GetElapsedTime(stopwatch.Elapsed));
-                        var printInfo2 = ConsoleAlgorithm.MarkCommonSupergraphEdges(minSupergraph);
-                        Matrix.PrintResults(printInfo2.Item1, printInfo2.Item2, printInfo2.Item3, "Min Common Supergraph (Approximate)");
+                        Matrix.PrintResults(ConsoleAlgorithm.MarkCommonSupergraphEdges(minSupergraph), "Min Common Supergraph (Approximate)");
                         break;
                     case '4':
                         if (IsExactAlgorithmApplicable)
@@ -252,8 +246,7 @@ namespace AlgorithmsComputabilityProject
                             var exactSubgraph = ConsoleAlgorithm.FindMaximalSubGraphConsole(GeneratedMatrices[0], GeneratedMatrices[1]);
                             stopwatch.Stop();
                             Console.WriteLine("Calculation time: " + GetElapsedTime(stopwatch.Elapsed));
-                            var printInfo = ConsoleAlgorithm.MarkCommonSubgraphEdges(exactSubgraph);
-                            Matrix.PrintResults(printInfo.Item1, printInfo.Item2, printInfo.Item3, "Max Common Subgraph (Exact)");
+                            Matrix.PrintResults(ConsoleAlgorithm.MarkCommonSubgraphEdges(exactSubgraph), "Max Common Subgraph (Exact)");
                         }
                         else Console.WriteLine("Not applicable for graphs bigger than 10 vertices");
                         break;
@@ -265,8 +258,7 @@ namespace AlgorithmsComputabilityProject
                             var exactSupergraph = ConsoleAlgorithm.FindMinimalSuperGraphConsole(GeneratedMatrices[0], GeneratedMatrices[1]);
                             stopwatch.Stop();
                             Console.WriteLine("Calculation time: " + GetElapsedTime(stopwatch.Elapsed));
-                            var printInfo = ConsoleAlgorithm.MarkCommonSupergraphEdges(exactSupergraph);
-                            Matrix.PrintResults(printInfo.Item1, printInfo.Item2, printInfo.Item3, "Min Common Supergraph (Exact)");
+                            Matrix.PrintResults(ConsoleAlgorithm.MarkCommonSupergraphEdges(exactSupergraph), "Min Common Supergraph (Exact)");
                         }
                         else Console.WriteLine("Not applicable for graphs bigger than 10 vertices");
                         break;

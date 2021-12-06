@@ -20,7 +20,10 @@ namespace AlgorithmsComputabilityProject
                 {
                     if (x != y)
                     {
-                        randGraph[x][y] = rnd.Next(0, 100) <= 70 ? 0 : 1;
+                        if (size < 5)
+                            randGraph[x][y] = rnd.Next(0, 100) <= 50 ? 0 : 1;
+                        else
+                            randGraph[x][y] = rnd.Next(0, 100) <= 70 ? 0 : 1;
                     }
                 }
             }

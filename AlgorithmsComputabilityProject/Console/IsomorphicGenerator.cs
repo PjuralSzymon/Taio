@@ -31,11 +31,9 @@ namespace AlgorithmsComputabilityProject
                         {
                             newMatrix.SwapColumn(array[i], i);
                             newMatrix.SwapRow(array[i], i);
-                            Permutation.Swap(array, array[i], i);
                         }
                     }
                 }
-
                 yield return new IsomorphicGeneratorEnumeratorData(newMatrix, array);
             }
         }

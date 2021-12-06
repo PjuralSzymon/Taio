@@ -22,8 +22,7 @@ namespace AlgorithmsComputabilityProject
                 B = A;
                 A = tmp;
             }
-            PrintModel results = new PrintModel();
-            results.SmallerGraph = B;
+            PrintModel results = new PrintModel { SmallerGraph = B, SmallerGraphVertexOrder = B.VertexOrder };
             int maxCommonEdges = 0;
             foreach (IsomorphicGeneratorEnumeratorData data in new IsomorphicGenerator(A))
             {
@@ -38,7 +37,8 @@ namespace AlgorithmsComputabilityProject
                         {
                             maxCommonEdges = commonMatrix.EdgesNumber;
                             results.ResultGraph = commonMatrix;
-                            results.GreaterGraph = data.PermutedMatrix;
+                            results.LargerGraph = data.PermutedMatrix;
+                            results.LargerGraphVertexOrder = data.Permutation;
                             results.X = x;
                             results.Y = y;
                         }
@@ -63,8 +63,7 @@ namespace AlgorithmsComputabilityProject
                 A = tmp;
             }
 
-            PrintModel results = new PrintModel();
-            results.SmallerGraph = B;
+            PrintModel results = new PrintModel { SmallerGraph = B, SmallerGraphVertexOrder = B.VertexOrder };
             int minCommonEdges = int.MaxValue;
             foreach (IsomorphicGeneratorEnumeratorData data in new IsomorphicGenerator(A))
             {
@@ -78,7 +77,8 @@ namespace AlgorithmsComputabilityProject
                         {
                             minCommonEdges = newMatrix.EdgesNumber;
                             results.ResultGraph = newMatrix;
-                            results.GreaterGraph = data.PermutedMatrix;
+                            results.LargerGraph = data.PermutedMatrix;
+                            results.LargerGraphVertexOrder = data.Permutation;
                             results.X = x;
                             results.Y = y;
                         }
@@ -108,9 +108,14 @@ namespace AlgorithmsComputabilityProject
                 sortedB.TransformToSortedForm();
             }
 
-            PrintModel results = new PrintModel();
-            results.GreaterGraph = sortedA;
-            results.SmallerGraph = sortedB;
+            PrintModel results = new PrintModel
+            {
+                LargerGraph = sortedA,
+                SmallerGraph = sortedB,
+                LargerGraphVertexOrder = sortedA.VertexOrder,
+                SmallerGraphVertexOrder = sortedB.VertexOrder,
+                Sorting = sort
+            };
             int maxCommonEdges = 0;
             for (int x = 0; x <= sortedA.VerticesNumber - sortedB.VerticesNumber; x++)
             {
@@ -150,9 +155,14 @@ namespace AlgorithmsComputabilityProject
                 sortedB.TransformToSortedForm();
             }
 
-            PrintModel results = new PrintModel();
-            results.GreaterGraph = sortedA;
-            results.SmallerGraph = sortedB;
+            PrintModel results = new PrintModel
+            {
+                LargerGraph = sortedA,
+                SmallerGraph = sortedB,
+                LargerGraphVertexOrder = sortedA.VertexOrder,
+                SmallerGraphVertexOrder = sortedB.VertexOrder,
+                Sorting = sort
+            };
             int minCommonEdges = int.MaxValue;
             for (int x = 0; x <= sortedA.VerticesNumber - sortedB.VerticesNumber; x++)
             {
@@ -181,10 +191,10 @@ namespace AlgorithmsComputabilityProject
         /// 3 - edge present in both input graphs
         /// We assume V(G2) >= V(G1) == V(GResult)
         /// </summary>
-        public static Tuple<Matrix, Matrix, Matrix> MarkCommonSubgraphEdges(PrintModel model)
+        public static PrintModel MarkCommonSubgraphEdges(PrintModel model)
         {
             Matrix smallGraph = new Matrix(model.SmallerGraph.Graph);
-            Matrix largeGraph = new Matrix(model.GreaterGraph.Graph);
+            Matrix largeGraph = new Matrix(model.LargerGraph.Graph);
             Matrix ResultCopy = new Matrix(model.ResultGraph.Graph);
 
             for (int i = 0; i < largeGraph.VerticesNumber; i++)
@@ -222,7 +232,11 @@ namespace AlgorithmsComputabilityProject
                     }
                 }
             }
-            return new Tuple<Matrix, Matrix, Matrix>(largeGraph, smallGraph, ResultCopy);
+            return new PrintModel { SmallerGraph = smallGraph, LargerGraph = largeGraph, ResultGraph = ResultCopy,
+                LargerGraphVertexOrder = model.LargerGraphVertexOrder, 
+                SmallerGraphVertexOrder = model.SmallerGraphVertexOrder,
+                Sorting = model.Sorting
+            };
         }
 
         /// <summary>
@@ -234,10 +248,10 @@ namespace AlgorithmsComputabilityProject
         /// We assume V(G2) == V(GResult) >= V(G1)
         /// </summary>
         /// <returns></returns>
-        public static Tuple<Matrix, Matrix, Matrix> MarkCommonSupergraphEdges(PrintModel model)
+        public static PrintModel MarkCommonSupergraphEdges(PrintModel model)
         {
             Matrix smallGraph = new Matrix(model.SmallerGraph.Graph);
-            Matrix largeGraph = new Matrix(model.GreaterGraph.Graph);
+            Matrix largeGraph = new Matrix(model.LargerGraph.Graph);
             Matrix Result = new Matrix(model.ResultGraph.Graph);
 
             for (int i = 0; i < largeGraph.VerticesNumber; i++)
@@ -276,7 +290,11 @@ namespace AlgorithmsComputabilityProject
                     }
                 }
             }
-            return new Tuple<Matrix, Matrix, Matrix>(largeGraph, smallGraph, Result);
+            return new PrintModel{ SmallerGraph = smallGraph, LargerGraph = largeGraph, ResultGraph = Result,
+                LargerGraphVertexOrder = model.LargerGraphVertexOrder,
+                SmallerGraphVertexOrder = model.SmallerGraphVertexOrder,
+                Sorting = model.Sorting
+            };
         }
     }
 }
