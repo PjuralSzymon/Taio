@@ -63,13 +63,13 @@ namespace AlgorithmsComputabilityProject
             //int counter = 1;
             //path += $"{counter}.txt";
             path += ".txt";
-            while (System.IO.File.Exists(path))
-            {
+            //while (System.IO.File.Exists(path))
+            //{
                 //counter++;
-                path = path[0..^5];
+                //path = path[0..^5];
                 //path += $"{counter}.txt";
-                path += ".txt";
-            }
+                //path += ".txt";
+            //}
             System.IO.File.WriteAllText(path, content, Encoding.UTF8);
         }
     }

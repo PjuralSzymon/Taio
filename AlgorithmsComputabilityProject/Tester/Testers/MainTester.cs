@@ -23,18 +23,22 @@ namespace AlgorithmsComputabilityProject.Tester
             //QualityTester.ApproximateSortedVersusUnsorted(examplesForApproxAlgorithms);
 
             //SpeedTester.RunSpeedTestsForExactAlgorithms(4, 10, 5);
-            SpeedTester.RunSpeedTestsForApproximateAlgorithms(10, 95, 50);
+            //SpeedTester.RunSpeedTestsForApproximateAlgorithms(10, 95, 50);
             //QualityTester.ApproximateVersusExact(4, 10, 5);
-            QualityTester.ApproximateSortedVersusUnsorted(10, 95, 50);
+            //QualityTester.ApproximateSortedVersusUnsorted(10, 95, 50);
             //Console.ReadKey();
+        }
 
+        // Don't run unless you want to regenerate the examples folder!
+        public static void GenerateExamplesFolder()
+        {
             // ----- Generating and saving examples -----
             //List<(Matrix, Matrix)> sameIsoGraphs = GenerateExamples.GenerateIsomorphicExamplesWithEqualSizes();
             //List<(Matrix, Matrix)> differentIsoGraphs = GenerateExamples.GenerateIsomorphicExamplesWithDifferentSizes();
-            //List<(Matrix, Matrix)> randomGraphs = GenerateExamples.GenerateRandomExamplesWithConcreteSizes();
+            List<(Matrix, Matrix)> randomGraphs = GenerateExamples.GenerateRandomExamplesWithConcreteSizes();
             //SaveExamplesOnDisk(sameIsoGraphs, "iso");
             //SaveExamplesOnDisk(differentIsoGraphs, "isosub", false);
-            //SaveExamplesOnDisk(randomGraphs, "noiso", false);
+            SaveExamplesOnDisk(randomGraphs, "noiso", false);
         }
 
         public static List<(Matrix, Matrix)> ReadExamplesFromDisk()
