@@ -23,8 +23,8 @@ namespace AlgorithmsComputabilityProject
             foreach (int[] array in Permutations)
             {
                 Matrix newMatrix = new Matrix(M.Graph);
-                int[] rememberThePermutationPlease = new int[array.Length];
-                Array.Copy(array, rememberThePermutationPlease, array.Length);
+                int[] vertexOrder = new int[array.Length];
+                Array.Copy(array, vertexOrder, array.Length);
 
                 for (int j = 0; j < array.Length; j++)
                 {
@@ -39,7 +39,7 @@ namespace AlgorithmsComputabilityProject
                     }
                 }
 
-                yield return new IsomorphicGeneratorEnumeratorData(newMatrix, rememberThePermutationPlease);
+                yield return new IsomorphicGeneratorEnumeratorData(newMatrix, vertexOrder);
             }
         }
     }
