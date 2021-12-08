@@ -22,11 +22,11 @@ namespace AlgorithmsComputabilityProject.Tester
         // Sizes to save on disk.
         public static readonly int[] ALL_ISO_MATRIX_SIZES = new int[]
         {
-            6, 8, 15, 20
+            4, 5, 6, 7, 8, 9, 15, 20
         };
         public static readonly int[] EXACT_ISO_MATRIX_SIZES = new int[]
         {
-            6, 8
+            4, 5, 6, 7, 8, 9
         };
         public static readonly int[] APPROX_ISO_MATRIX_SIZES = new int[]
         {
@@ -34,11 +34,11 @@ namespace AlgorithmsComputabilityProject.Tester
         };
         public static readonly (int, int)[] ALL_ISO_SUB_MATRIX_SIZES = new (int, int)[]
         {
-            (6, 4), (8, 7), (9, 5), (15, 11), (20, 15)
+            (5, 3), (6, 4), (7, 5), (8, 7), (9, 5), (15, 11), (20, 15)
         };
         public static readonly (int, int)[] EXACT_ISO_SUB_MATRIX_SIZES = new (int, int)[]
         {
-            (6, 4), (8, 7), (9, 5)
+            (5, 3), (6, 4), (7, 5), (8, 7), (9, 5)
         };
         public static readonly (int, int)[] APPROX_ISO_SUB_MATRIX_SIZES = new (int, int)[]
         {
@@ -68,7 +68,9 @@ namespace AlgorithmsComputabilityProject.Tester
         public const string MINIMAL_COMMON_SUPERGRAPH_APPROXIMATE = "Minimal Common Supergraph Approximate";
 
         public const string EXAMPLES_DIRECTORY = "../../../Tester/Examples/";
+        //public const string EXAMPLES_DIRECTORY = "../";
         public const string OUTPUT_DIRECTORY = "../../../Tester/Output/";
+        //public const string OUTPUT_DIRECTORY = "../";
 
         public static readonly Dictionary<string, Func<Matrix, Matrix, bool, Matrix>> AllFunctions =
             new Dictionary<string, Func<Matrix, Matrix, bool, Matrix>>

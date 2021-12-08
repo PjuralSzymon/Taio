@@ -107,6 +107,10 @@ namespace AlgorithmsComputabilityProject
 
         public static Matrix FindCommonMatrix(Matrix A, Matrix B)
         {
+            //int size = A.VerticesNumber > B.VerticesNumber ? A.VerticesNumber : B.VerticesNumber;
+            //int[][] newGraph = new int[size][];
+            //InitializeArrays(newGraph, size);
+
             for (int i = 0; i < A.VerticesNumber; i++)
             {
                 for (int j = 0; j < A.VerticesNumber; j++)
@@ -393,6 +397,22 @@ namespace AlgorithmsComputabilityProject
                 }
             }
             return output.ToString();
+        }
+
+        public void Print()
+        {
+            Console.WriteLine("Matrix vertices: " + VerticesNumber);
+            Console.WriteLine("Matrix edges: " + EdgesNumber);
+            for (int i = 0; i < VerticesNumber; i++)
+            {
+                for (int j = 0; j < VerticesNumber; j++)
+                {
+                    Console.Write(Graph[i][j] + " ");
+                }
+                Console.Write(" |" + GetVertexDegreeRow(i));
+                Console.WriteLine();
+            }
+            Console.WriteLine(" ");
         }
     }
 }

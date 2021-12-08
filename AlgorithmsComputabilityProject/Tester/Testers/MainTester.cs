@@ -33,11 +33,11 @@ namespace AlgorithmsComputabilityProject.Tester
         public static void GenerateExamplesFolder()
         {
             // ----- Generating and saving examples -----
-            //List<(Matrix, Matrix)> sameIsoGraphs = GenerateExamples.GenerateIsomorphicExamplesWithEqualSizes();
-            //List<(Matrix, Matrix)> differentIsoGraphs = GenerateExamples.GenerateIsomorphicExamplesWithDifferentSizes();
+            List<(Matrix, Matrix)> sameIsoGraphs = GenerateExamples.GenerateIsomorphicExamplesWithEqualSizes();
+            List<(Matrix, Matrix)> differentIsoGraphs = GenerateExamples.GenerateIsomorphicExamplesWithDifferentSizes();
             List<(Matrix, Matrix)> randomGraphs = GenerateExamples.GenerateRandomExamplesWithConcreteSizes();
-            //SaveExamplesOnDisk(sameIsoGraphs, "iso");
-            //SaveExamplesOnDisk(differentIsoGraphs, "isosub", false);
+            SaveExamplesOnDisk(sameIsoGraphs, "iso", true);
+            SaveExamplesOnDisk(differentIsoGraphs, "isosub", false);
             SaveExamplesOnDisk(randomGraphs, "noiso", false);
         }
 
@@ -85,7 +85,9 @@ namespace AlgorithmsComputabilityProject.Tester
 
                 foreach (FileInfo file in directory.GetFiles())
                 {
-                    file.Delete();
+                    //file.Delete();
+                    if (file.FullName.Contains("iso.txt") || file.FullName.Contains("noiso.txt") || file.FullName.Contains("isosub.txt"))
+                        file.Delete();
                 }
             }
 

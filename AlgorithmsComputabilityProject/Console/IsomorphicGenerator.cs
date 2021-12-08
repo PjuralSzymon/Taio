@@ -23,6 +23,9 @@ namespace AlgorithmsComputabilityProject
             foreach (int[] array in Permutations)
             {
                 Matrix newMatrix = new Matrix(M.Graph);
+                int[] rememberThePermutationPlease = new int[array.Length];
+                Array.Copy(array, rememberThePermutationPlease, array.Length);
+
                 for (int j = 0; j < array.Length; j++)
                 {
                     for (int i = 0; i < array.Length; i++)
@@ -31,10 +34,12 @@ namespace AlgorithmsComputabilityProject
                         {
                             newMatrix.SwapColumn(array[i], i);
                             newMatrix.SwapRow(array[i], i);
+                            Permutation.Swap(array, array[i], i);
                         }
                     }
                 }
-                yield return new IsomorphicGeneratorEnumeratorData(newMatrix, array);
+
+                yield return new IsomorphicGeneratorEnumeratorData(newMatrix, rememberThePermutationPlease);
             }
         }
     }
